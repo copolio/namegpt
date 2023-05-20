@@ -1,4 +1,4 @@
-module github.com/copolio/name-gpt
+module github.com/copolio/namegpt
 
 go 1.20
 
