@@ -12,7 +12,9 @@ var database *gorm.DB
 func InitConnection() {
 	conf := config.Get()
 	dsn := conf.DSN
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+		DisableForeignKeyConstraintWhenMigrating: true,
+	})
 	if err != nil {
 		log.Fatal("Error connecting database: " + err.Error())
 	}
