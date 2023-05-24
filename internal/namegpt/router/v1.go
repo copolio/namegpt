@@ -1,4 +1,4 @@
-package routes
+package router
 
 import (
 	"github.com/copolio/namegpt/internal/namegpt/controller"

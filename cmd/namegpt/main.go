@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/copolio/namegpt/config"
-	"github.com/copolio/namegpt/internal/namegpt/routes"
+	"github.com/copolio/namegpt/internal/namegpt/router"
 	"github.com/copolio/namegpt/pkg/database/mysql"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -15,7 +15,8 @@ func main() {
 	}
 	mysql.InitConnection()
 
-	router := gin.Default()
-	routes.SetV0Routes(router)
-	router.Run()
+	r := gin.Default()
+	router.SetV0Routes(r)
+	router.SetV1Routes(r)
+	r.Run()
 }
