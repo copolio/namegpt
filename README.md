@@ -10,6 +10,8 @@ This application has been built using following technologies:
 ## How to use
 
 ```shell
-# Simple test run
-go run cmd/namegpt/main.go
+# Creates Swagger document
+swag init --parseDependency --parseInternal
+# Simple way to run service
+go run main.go
 ```

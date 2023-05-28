@@ -18,24 +18,36 @@ func NewUserController() *UserController {
 	}
 }
 
+// CreateUser
+// @Summary Creates a user.
+// @Description Creates a user in database.
+// @Param user body request.CreateUser true "Create user request"
+// @Accept  json
+// @Produce  json
+// @Router /v1/users [post]
+// @Success 200 {object} entity.User "user"
 func (controller UserController) CreateUser(c *gin.Context) {
 	createUser := request.CreateUser{}
-	if err := c.ShouldBindBodyWith(&createUser, binding.JSON); err == nil {
+	if err := c.ShouldBindBodyWith(&createUser, binding.JSON); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Invalid request",
 		})
 		return
 	}
 	user := controller.userService.CreateUser(createUser.Name)
-	c.JSON(http.StatusOK, gin.H{
-		"user": user,
-	})
+	c.JSON(http.StatusOK, user)
 }
 
+// GetUser
+// @Summary Gets a user info by name.
+// @Description Gets a user info from database.
+// @Param name path string true "Username"
+// @Accept  json
+// @Produce  json
+// @Router /v1/users/{name} [get]
+// @Success 200 {object} entity.User "user"
 func (controller UserController) GetUser(c *gin.Context) {
 	name := c.Param("name")
 	user := controller.userService.GetUser(name)
-	c.JSON(http.StatusOK, gin.H{
-		"user": user,
-	})
+	c.JSON(http.StatusOK, user)
 }
