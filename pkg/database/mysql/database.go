@@ -9,7 +9,7 @@ import (
 
 var database *gorm.DB
 
-func InitConnection() {
+func init() {
 	conf := config.Get()
 	dsn := conf.DSN
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
