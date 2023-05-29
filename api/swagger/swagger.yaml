@@ -42,8 +42,10 @@ paths:
           description: OK
           schema:
             type: string
-      summary: This is simple Summary.
-  /v1/users:
+      summary: Pong!
+      tags:
+      - v0
+  /v0/users:
     post:
       consumes:
       - application/json
@@ -63,7 +65,9 @@ paths:
           schema:
             $ref: '#/definitions/github_com_copolio_namegpt_internal_namegpt_entity.User'
       summary: Creates a user.
-  /v1/users/{name}:
+      tags:
+      - v0
+  /v0/users/{name}:
     get:
       consumes:
       - application/json
@@ -82,4 +86,6 @@ paths:
           schema:
             $ref: '#/definitions/github_com_copolio_namegpt_internal_namegpt_entity.User'
       summary: Gets a user info by name.
+      tags:
+      - v0
 swagger: "2.0"

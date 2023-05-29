@@ -25,7 +25,10 @@ const docTemplate = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "This is simple Summary.",
+                "tags": [
+                    "v0"
+                ],
+                "summary": "Pong!",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -36,7 +39,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/users": {
+        "/v0/users": {
             "post": {
                 "description": "Creates a user in database.",
                 "consumes": [
@@ -44,6 +47,9 @@ const docTemplate = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "v0"
                 ],
                 "summary": "Creates a user.",
                 "parameters": [
@@ -67,7 +73,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/users/{name}": {
+        "/v0/users/{name}": {
             "get": {
                 "description": "Gets a user info from database.",
                 "consumes": [
@@ -75,6 +81,9 @@ const docTemplate = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "v0"
                 ],
                 "summary": "Gets a user info by name.",
                 "parameters": [

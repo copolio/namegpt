@@ -22,10 +22,11 @@ func NewUserController() *UserController {
 // CreateUser
 // @Summary Creates a user.
 // @Description Creates a user in database.
+// @Tags v0
 // @Param user body request.CreateUser true "Create user request"
 // @Accept  json
 // @Produce  json
-// @Router /v1/users [post]
+// @Router /v0/users [post]
 // @Success 200 {object} entity.User "user"
 func (controller UserController) CreateUser(c *gin.Context) {
 	createUser := request.CreateUser{}
@@ -42,10 +43,11 @@ func (controller UserController) CreateUser(c *gin.Context) {
 // GetUser
 // @Summary Gets a user info by name.
 // @Description Gets a user info from database.
+// @Tags v0
 // @Param name path string true "Username"
 // @Accept  json
 // @Produce  json
-// @Router /v1/users/{name} [get]
+// @Router /v0/users/{name} [get]
 // @Success 200 {object} entity.User "user"
 func (controller UserController) GetUser(c *gin.Context) {
 	name := c.Param("name")
