@@ -7,8 +7,9 @@ import (
 )
 
 type Config struct {
-	DSN     string
-	DdlAuto DdlAutoMode
+	DSN          string
+	DdlAuto      DdlAutoMode
+	ChatgptToken string
 }
 
 var config *Config
@@ -29,11 +30,13 @@ func loadConfig(configMode ConfigMode) error {
 		return err
 	}
 
+	chatgptToken := os.Getenv("CHATGPT_TOKEN")
 	dsn := os.Getenv("MYSQL_DSN")
 	ddl := MapToDdlAuto(os.Getenv("DDL_AUTO"))
 	config = &Config{
-		DSN:     dsn,
-		DdlAuto: ddl,
+		DSN:          dsn,
+		DdlAuto:      ddl,
+		ChatgptToken: chatgptToken,
 	}
 	return nil
 }
