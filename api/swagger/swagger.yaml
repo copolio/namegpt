@@ -1,5 +1,5 @@
 definitions:
-  entity.User:
+  github_com_copolio_namegpt_internal_namegpt_entity.User:
     properties:
       createdAt:
         type: string
@@ -12,6 +12,13 @@ definitions:
       updatedAt:
         type: string
     type: object
+  github_com_copolio_namegpt_pkg_dto_request.CreateUser:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
   gorm.DeletedAt:
     properties:
       time:
@@ -19,13 +26,6 @@ definitions:
       valid:
         description: Valid is true if Time is not NULL
         type: boolean
-    type: object
-  request.CreateUser:
-    properties:
-      name:
-        type: string
-    required:
-    - name
     type: object
 info:
   contact: {}
@@ -54,14 +54,14 @@ paths:
         name: user
         required: true
         schema:
-          $ref: '#/definitions/request.CreateUser'
+          $ref: '#/definitions/github_com_copolio_namegpt_pkg_dto_request.CreateUser'
       produces:
       - application/json
       responses:
         "200":
           description: user
           schema:
-            $ref: '#/definitions/entity.User'
+            $ref: '#/definitions/github_com_copolio_namegpt_internal_namegpt_entity.User'
       summary: Creates a user.
   /v1/users/{name}:
     get:
@@ -80,6 +80,6 @@ paths:
         "200":
           description: user
           schema:
-            $ref: '#/definitions/entity.User'
+            $ref: '#/definitions/github_com_copolio_namegpt_internal_namegpt_entity.User'
       summary: Gets a user info by name.
 swagger: "2.0"

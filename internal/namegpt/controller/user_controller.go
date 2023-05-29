@@ -1,6 +1,7 @@
 package controller
 
 import (
+	_ "github.com/copolio/namegpt/internal/namegpt/entity"
 	"github.com/copolio/namegpt/internal/namegpt/service"
 	"github.com/copolio/namegpt/pkg/dto/request"
 	"github.com/gin-gonic/gin"

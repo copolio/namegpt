@@ -11,7 +11,7 @@ This application has been built using following technologies:
 
 ```shell
 # Creates Swagger document
-swag init --parseDependency --parseInternal
-# Simple way to run service
-go run main.go
+swag init --parseDependency --parseInternal -g ./cmd/namegpt/main.go -o ./api/swagger
+# Build service 
+go build github.com/copolio/namegpt/cmd/namegpt
 ```
