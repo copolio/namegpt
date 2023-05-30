@@ -1,20 +1,21 @@
 # ERD
 ```mermaid
 erDiagram
-    User {
-      id int PK
-      name string
-    }
     Query {
       id int PK
       keyword string
     }
+    QueryHistory {
+        id int PK
+        queryID int
+        userID string
+    }
     Domain {
       id int PK
       name string
-      checkDate datetime
     }
 
-    User ||--o{ Query: search
-    Query ||--o{ Domain: return
+    Query ||--o{ QueryHistory : records
+    Query ||--o{ Domain : returns
+    
 ```

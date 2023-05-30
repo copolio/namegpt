@@ -4,5 +4,5 @@ import "gorm.io/gorm"
 
 type Query struct {
 	gorm.Model
-	keyword string
+	Keyword string `gorm:"uniqueIndex"`
 }
