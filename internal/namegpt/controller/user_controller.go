@@ -10,7 +10,7 @@ import (
 )
 
 type UserController struct {
-	userService *service.UserService
+	userService service.UserService
 }
 
 func NewUserController() *UserController {
@@ -51,6 +51,9 @@ func (controller UserController) CreateUser(c *gin.Context) {
 // @Success 200 {object} entity.User "user"
 func (controller UserController) GetUser(c *gin.Context) {
 	name := c.Param("name")
-	user := controller.userService.GetUser(name)
+	user, err := controller.userService.GetUser(name)
+	if err != nil {
+		c.JSON(http.StatusNoContent, struct{}{})
+	}
 	c.JSON(http.StatusOK, user)
 }

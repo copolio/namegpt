@@ -6,23 +6,28 @@ import (
 	"gorm.io/gorm"
 )
 
-type UserRepository struct {
+type UserRepository interface {
+	Save(user *entity.User) *entity.User
+	FindByName(name string) (*entity.User, error)
+}
+
+type GormUserRepository struct {
 	db *gorm.DB
 }
 
-func NewUserRepository() *UserRepository {
-	return &UserRepository{
+func NewUserRepository() UserRepository {
+	return &GormUserRepository{
 		db: mysql.Get(),
 	}
 }
 
-func (u UserRepository) Save(user *entity.User) *entity.User {
+func (u GormUserRepository) Save(user *entity.User) *entity.User {
 	u.db.Save(user)
 	return user
 }
 
-func (u UserRepository) FindByName(name string) *entity.User {
+func (u GormUserRepository) FindByName(name string) (*entity.User, error) {
 	var user entity.User
-	u.db.Where(&entity.User{Name: name}).First(&user)
-	return &user
+	result := u.db.Where(&entity.User{Name: name}).First(&user)
+	return &user, result.Error
 }

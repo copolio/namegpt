@@ -5,22 +5,27 @@ import (
 	"github.com/copolio/namegpt/internal/namegpt/repository"
 )
 
-type UserService struct {
-	userRepository *repository.UserRepository
+type UserService interface {
+	CreateUser(name string) *entity.User
+	GetUser(name string) (*entity.User, error)
 }
 
-func NewUserService() *UserService {
-	return &UserService{
+type UserServiceImpl struct {
+	userRepository repository.UserRepository
+}
+
+func NewUserService() UserService {
+	return &UserServiceImpl{
 		userRepository: repository.NewUserRepository(),
 	}
 }
 
-func (u UserService) CreateUser(name string) *entity.User {
+func (u UserServiceImpl) CreateUser(name string) *entity.User {
 	return u.userRepository.Save(&entity.User{
 		Name: name,
 	})
 }
 
-func (u UserService) GetUser(name string) *entity.User {
+func (u UserServiceImpl) GetUser(name string) (*entity.User, error) {
 	return u.userRepository.FindByName(name)
 }
