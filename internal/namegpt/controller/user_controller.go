@@ -36,8 +36,12 @@ func (controller UserController) CreateUser(c *gin.Context) {
 		})
 		return
 	}
-	user := controller.userService.CreateUser(createUser.Name)
-	c.JSON(http.StatusOK, user)
+	user, db := controller.userService.CreateUser(createUser.Name)
+	if db.Error != nil {
+		c.JSON(http.StatusInternalServerError, db.Error)
+	} else {
+		c.JSON(http.StatusOK, user)
+	}
 }
 
 // GetUser
@@ -51,9 +55,10 @@ func (controller UserController) CreateUser(c *gin.Context) {
 // @Success 200 {object} entity.User "user"
 func (controller UserController) GetUser(c *gin.Context) {
 	name := c.Param("name")
-	user, err := controller.userService.GetUser(name)
-	if err != nil {
+	user, db := controller.userService.GetUser(name)
+	if db.Error != nil {
 		c.JSON(http.StatusNoContent, struct{}{})
+	} else {
+		c.JSON(http.StatusOK, user)
 	}
-	c.JSON(http.StatusOK, user)
 }

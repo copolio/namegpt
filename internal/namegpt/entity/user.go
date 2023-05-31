@@ -9,7 +9,7 @@ import (
 
 type User struct {
 	gorm.Model
-	Name string
+	Name string `gorm:"unique"`
 }
 
 func init() {
@@ -22,4 +22,8 @@ func init() {
 		}
 		log.Default().Println("Created USER table")
 	}
+}
+
+func (User) TableName() string {
+	return "user"
 }
