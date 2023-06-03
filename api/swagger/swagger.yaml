@@ -1,4 +1,19 @@
 definitions:
+  github_com_copolio_namegpt_internal_namegpt_entity.DomainName:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      name:
+        type: string
+      queryID:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
   github_com_copolio_namegpt_internal_namegpt_entity.User:
     properties:
       createdAt:
@@ -88,4 +103,27 @@ paths:
       summary: Gets a user info by name.
       tags:
       - v0
+  /v1/search:
+    get:
+      description: Creates a user in database.
+      parameters:
+      - in: query
+        name: keyword
+        required: true
+        type: string
+      - in: query
+        name: user
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: domain names
+          schema:
+            items:
+              $ref: '#/definitions/github_com_copolio_namegpt_internal_namegpt_entity.DomainName'
+            type: array
+      summary: Get similar domain names given input
+      tags:
+      - v1
 swagger: "2.0"

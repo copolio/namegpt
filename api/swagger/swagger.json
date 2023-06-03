@@ -92,9 +92,68 @@
                     }
                 }
             }
+        },
+        "/v1/search": {
+            "get": {
+                "description": "Creates a user in database.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "v1"
+                ],
+                "summary": "Get similar domain names given input",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "keyword",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "user",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "domain names",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_copolio_namegpt_internal_namegpt_entity.DomainName"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "github_com_copolio_namegpt_internal_namegpt_entity.DomainName": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "queryID": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
         "github_com_copolio_namegpt_internal_namegpt_entity.User": {
             "type": "object",
             "properties": {
