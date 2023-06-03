@@ -4,6 +4,7 @@ import (
 	"github.com/joho/godotenv"
 	"log"
 	"os"
+	"regexp"
 )
 
 type Config struct {
@@ -23,10 +24,14 @@ func init() {
 }
 
 func loadConfig(configMode ConfigMode) error {
-	env := ".env." + configMode.String()
-	err := godotenv.Load(env)
+	projectDirName := "namegpt"
+	projectName := regexp.MustCompile(`^(.*` + projectDirName + `)`)
+	currentWorkDirectory, _ := os.Getwd()
+	rootPath := projectName.Find([]byte(currentWorkDirectory))
+	env := "/.env." + configMode.String()
+	err := godotenv.Load(string(rootPath) + env)
 	if err != nil {
-		log.Fatal("Error loading environmental variables")
+		log.Fatalf("Error loading environmental variables: %v", err)
 		return err
 	}
 
