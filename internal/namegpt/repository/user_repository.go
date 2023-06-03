@@ -7,8 +7,8 @@ import (
 )
 
 type UserRepository interface {
-	Save(user *entity.User) (*entity.User, *gorm.DB)
-	FindByName(name string) (*entity.User, *gorm.DB)
+	Save(user *entity.User) (*entity.User, error)
+	FindByName(name string) (*entity.User, error)
 }
 
 type GormUserRepository struct {
@@ -17,17 +17,20 @@ type GormUserRepository struct {
 
 func NewUserRepository() UserRepository {
 	return &GormUserRepository{
-		db: mysql.Get(),
+		db: mysql.GetGormDB(),
 	}
 }
 
-func (u GormUserRepository) Save(user *entity.User) (*entity.User, *gorm.DB) {
-	result := u.db.Save(user)
-	return user, result
+func (u GormUserRepository) Save(user *entity.User) (*entity.User, error) {
+	err := u.db.Transaction(func(tx2 *gorm.DB) error {
+		result := tx2.Save(user)
+		return result.Error
+	})
+	return user, err
 }
 
-func (u GormUserRepository) FindByName(name string) (*entity.User, *gorm.DB) {
+func (u GormUserRepository) FindByName(name string) (*entity.User, error) {
 	var user entity.User
 	result := u.db.Where(&entity.User{Name: name}).First(&user)
-	return &user, result
+	return &user, result.Error
 }

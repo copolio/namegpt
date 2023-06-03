@@ -16,7 +16,7 @@ func init() {
 	curConfig := config.Get()
 	if curConfig.DdlAuto == config.CREATE {
 		log.Default().Println("Start creating USER table")
-		err := mysql.Get().AutoMigrate(&User{})
+		err := mysql.GetGormDB().AutoMigrate(&User{})
 		if err != nil {
 			log.Default().Fatal("Error creating USER table: " + err.Error())
 		}

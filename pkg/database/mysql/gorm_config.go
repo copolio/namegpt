@@ -7,20 +7,21 @@ import (
 	"log"
 )
 
-var database *gorm.DB
+var connection *gorm.DB
 
 func init() {
 	conf := config.Get()
 	dsn := conf.DSN
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,
+		SkipDefaultTransaction:                   true,
 	})
 	if err != nil {
-		log.Fatal("Error connecting database: " + err.Error())
+		log.Fatal("Error connecting connection: " + err.Error())
 	}
-	database = db
+	connection = db
 }
 
-func Get() *gorm.DB {
-	return database
+func GetGormDB() (db *gorm.DB) {
+	return connection
 }

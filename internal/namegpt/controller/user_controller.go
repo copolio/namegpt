@@ -36,9 +36,9 @@ func (controller UserController) CreateUser(c *gin.Context) {
 		})
 		return
 	}
-	user, db := controller.userUseCase.CreateUser(createUser.Name)
-	if db.Error != nil {
-		c.JSON(http.StatusInternalServerError, db.Error)
+	user, err := controller.userUseCase.CreateUser(createUser.Name)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
 	} else {
 		c.JSON(http.StatusOK, user)
 	}
@@ -55,8 +55,8 @@ func (controller UserController) CreateUser(c *gin.Context) {
 // @Success 200 {object} entity.User "user"
 func (controller UserController) GetUser(c *gin.Context) {
 	name := c.Param("name")
-	user, db := controller.userUseCase.GetUser(name)
-	if db.Error != nil {
+	user, err := controller.userUseCase.GetUser(name)
+	if err != nil {
 		c.JSON(http.StatusNoContent, struct{}{})
 	} else {
 		c.JSON(http.StatusOK, user)

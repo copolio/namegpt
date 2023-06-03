@@ -3,12 +3,11 @@ package service
 import (
 	"github.com/copolio/namegpt/internal/namegpt/entity"
 	"github.com/copolio/namegpt/internal/namegpt/repository"
-	"gorm.io/gorm"
 )
 
 type UserUseCase interface {
-	CreateUser(name string) (*entity.User, *gorm.DB)
-	GetUser(name string) (*entity.User, *gorm.DB)
+	CreateUser(name string) (user *entity.User, err error)
+	GetUser(name string) (user *entity.User, err error)
 }
 
 type UserService struct {
@@ -21,12 +20,12 @@ func NewUserUseCase() UserUseCase {
 	}
 }
 
-func (u UserService) CreateUser(name string) (*entity.User, *gorm.DB) {
+func (u UserService) CreateUser(name string) (*entity.User, error) {
 	return u.userRepository.Save(&entity.User{
 		Name: name,
 	})
 }
 
-func (u UserService) GetUser(name string) (*entity.User, *gorm.DB) {
+func (u UserService) GetUser(name string) (*entity.User, error) {
 	return u.userRepository.FindByName(name)
 }
