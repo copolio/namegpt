@@ -10,12 +10,12 @@ import (
 )
 
 type UserController struct {
-	userService service.UserService
+	userUseCase service.UserUseCase
 }
 
 func NewUserController() *UserController {
 	return &UserController{
-		userService: service.NewUserService(),
+		userUseCase: service.NewUserUseCase(),
 	}
 }
 
@@ -36,7 +36,7 @@ func (controller UserController) CreateUser(c *gin.Context) {
 		})
 		return
 	}
-	user, db := controller.userService.CreateUser(createUser.Name)
+	user, db := controller.userUseCase.CreateUser(createUser.Name)
 	if db.Error != nil {
 		c.JSON(http.StatusInternalServerError, db.Error)
 	} else {
@@ -55,7 +55,7 @@ func (controller UserController) CreateUser(c *gin.Context) {
 // @Success 200 {object} entity.User "user"
 func (controller UserController) GetUser(c *gin.Context) {
 	name := c.Param("name")
-	user, db := controller.userService.GetUser(name)
+	user, db := controller.userUseCase.GetUser(name)
 	if db.Error != nil {
 		c.JSON(http.StatusNoContent, struct{}{})
 	} else {

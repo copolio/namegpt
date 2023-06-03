@@ -6,27 +6,27 @@ import (
 	"gorm.io/gorm"
 )
 
-type UserService interface {
+type UserUseCase interface {
 	CreateUser(name string) (*entity.User, *gorm.DB)
 	GetUser(name string) (*entity.User, *gorm.DB)
 }
 
-type UserServiceImpl struct {
+type UserService struct {
 	userRepository repository.UserRepository
 }
 
-func NewUserService() UserService {
-	return &UserServiceImpl{
+func NewUserUseCase() UserUseCase {
+	return &UserService{
 		userRepository: repository.NewUserRepository(),
 	}
 }
 
-func (u UserServiceImpl) CreateUser(name string) (*entity.User, *gorm.DB) {
+func (u UserService) CreateUser(name string) (*entity.User, *gorm.DB) {
 	return u.userRepository.Save(&entity.User{
 		Name: name,
 	})
 }
 
-func (u UserServiceImpl) GetUser(name string) (*entity.User, *gorm.DB) {
+func (u UserService) GetUser(name string) (*entity.User, *gorm.DB) {
 	return u.userRepository.FindByName(name)
 }
