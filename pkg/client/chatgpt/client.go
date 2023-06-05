@@ -3,6 +3,7 @@ package chatgpt
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/copolio/namegpt/config"
 	"github.com/sashabaranov/go-openai"
 	"log"
@@ -24,7 +25,7 @@ func GetSimilarDomains(keyword string) (domains []string, err error) {
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role:    openai.ChatMessageRoleSystem,
-					Content: "You are an assistant that only speaks JSON. Do not write normal text. Give 50 similar domain names without tld given input",
+					Content: "You are an assistant that only speaks JSON array. Do not write normal text. Give 50 similar domain names without tld given input",
 				},
 				{
 					Role:    openai.ChatMessageRoleUser,
@@ -35,16 +36,13 @@ func GetSimilarDomains(keyword string) (domains []string, err error) {
 	)
 
 	if err != nil {
-		log.Default().Printf("ChatCompletion Error: %v\n", err)
-		return nil, err
+		return nil, fmt.Errorf("ChatGPT completion failed: %w", err)
 	}
 
 	message := response.Choices[0].Message.Content
 	err = json.Unmarshal([]byte(message), &domains)
 	if err != nil {
-		log.Default().Printf("Original String: %s\n", message)
-		log.Default().Printf("JSON Parse Error: %v\n", err)
-		return nil, err
+		return nil, fmt.Errorf("JSON parse failed (message: %s): %w", message, err)
 	}
 
 	return domains, err

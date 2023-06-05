@@ -5,7 +5,6 @@ import (
 	"github.com/copolio/namegpt/internal/namegpt/service"
 	"github.com/copolio/namegpt/pkg/dto/request"
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 )
 
@@ -29,18 +28,15 @@ func (q QueryController) SearchDomainNames() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		query := request.SearchDomainNames{}
 		if err := c.Bind(&query); err != nil {
-			log.Default().Printf("Request binding error: %v", err)
-			c.JSON(http.StatusBadRequest, gin.H{
-				"message": "Invalid request",
-			})
+			c.Error(err)
 			return
 		}
 
 		domainNames, err := q.queryUseCase.Handle(query)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, err)
-		} else {
-			c.JSON(http.StatusOK, domainNames)
+			c.Error(err)
+			return
 		}
+		c.JSON(http.StatusOK, domainNames)
 	}
 }

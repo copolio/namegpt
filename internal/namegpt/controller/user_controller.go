@@ -32,17 +32,15 @@ func (controller UserController) CreateUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		createUser := request.CreateUser{}
 		if err := c.ShouldBindBodyWith(&createUser, binding.JSON); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"message": "Invalid request",
-			})
+			c.Error(err)
 			return
 		}
 		user, err := controller.userUseCase.CreateUser(createUser.Name)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, err)
-		} else {
-			c.JSON(http.StatusOK, user)
+			c.Error(err)
+			return
 		}
+		c.JSON(http.StatusOK, user)
 	}
 }
 
