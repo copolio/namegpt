@@ -8,7 +8,7 @@ const docTemplate = `{
     "schemes": {{ marshal .Schemes }},
     "swagger": "2.0",
     "info": {
-        "description": "{{escape .Description}}",
+        "description": "{{escape .MetaData}}",
         "title": "{{.Title}}",
         "contact": {},
         "version": "{{.Version}}"
@@ -18,7 +18,7 @@ const docTemplate = `{
     "paths": {
         "/v0/ping": {
             "get": {
-                "description": "This is detail Description.",
+                "description": "This is detail MetaData.",
                 "consumes": [
                     "application/json"
                 ],

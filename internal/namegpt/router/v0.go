@@ -12,15 +12,15 @@ func SetV0Routes(router *gin.Engine) *gin.Engine {
 	v0 := router.Group("/api/v0")
 	{
 		v0.GET("/ping", ping())
-		v0.POST("/users", userController.CreateUser)
-		v0.GET("/users/:name", userController.GetUser)
+		v0.POST("/users", userController.CreateUser())
+		v0.GET("/users/:name", userController.GetUser())
 	}
 	return router
 }
 
 // requestPing
 // @Summary Pong!
-// @Description This is detail Description.
+// @MetaData This is detail MetaData.
 // @Tags v0
 // @Accept  json
 // @Produce  json

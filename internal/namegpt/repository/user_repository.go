@@ -1,9 +1,13 @@
 package repository
 
 import (
+	"errors"
+	"fmt"
 	"github.com/copolio/namegpt/internal/namegpt/entity"
+	"github.com/copolio/namegpt/internal/namegpt/middleware"
 	"github.com/copolio/namegpt/pkg/database/mysql"
 	"gorm.io/gorm"
+	"net/http"
 )
 
 type UserRepository interface {
@@ -32,5 +36,12 @@ func (u GormUserRepository) Save(user *entity.User) (*entity.User, error) {
 func (u GormUserRepository) FindByName(name string) (*entity.User, error) {
 	var user entity.User
 	result := u.db.Where(&entity.User{Name: name}).First(&user)
+	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+		return nil, fmt.Errorf("user repository error: %w", &middleware.ResponseStatusError{
+			Code:     http.StatusNotFound,
+			Message:  fmt.Sprintf("user %s does not exist", name),
+			MetaData: result.Error.Error(),
+		})
+	}
 	return &user, result.Error
 }

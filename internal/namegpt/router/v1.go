@@ -9,7 +9,7 @@ func SetV1Routes(router *gin.Engine) *gin.Engine {
 	queryController := controller.NewQueryController()
 	v1 := router.Group("/api/v1")
 	{
-		v1.GET("/search", queryController.SearchDomainNames)
+		v1.GET("/search", queryController.SearchDomainNames())
 	}
 	return router
 }

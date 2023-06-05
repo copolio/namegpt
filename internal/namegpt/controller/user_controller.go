@@ -21,44 +21,48 @@ func NewUserController() *UserController {
 
 // CreateUser
 // @Summary Creates a user.
-// @Description Creates a user in database.
+// @MetaData Creates a user in database.
 // @Tags v0
 // @Param user body request.CreateUser true "Create user request"
 // @Accept  json
 // @Produce  json
 // @Router /v0/users [post]
 // @Success 200 {object} entity.User "user"
-func (controller UserController) CreateUser(c *gin.Context) {
-	createUser := request.CreateUser{}
-	if err := c.ShouldBindBodyWith(&createUser, binding.JSON); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "Invalid request",
-		})
-		return
-	}
-	user, err := controller.userUseCase.CreateUser(createUser.Name)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
-	} else {
-		c.JSON(http.StatusOK, user)
+func (controller UserController) CreateUser() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		createUser := request.CreateUser{}
+		if err := c.ShouldBindBodyWith(&createUser, binding.JSON); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"message": "Invalid request",
+			})
+			return
+		}
+		user, err := controller.userUseCase.CreateUser(createUser.Name)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, err)
+		} else {
+			c.JSON(http.StatusOK, user)
+		}
 	}
 }
 
 // GetUser
 // @Summary Gets a user info by name.
-// @Description Gets a user info from database.
+// @MetaData Gets a user info from database.
 // @Tags v0
 // @Param name path string true "Username"
 // @Accept  json
 // @Produce  json
 // @Router /v0/users/{name} [get]
 // @Success 200 {object} entity.User "user"
-func (controller UserController) GetUser(c *gin.Context) {
-	name := c.Param("name")
-	user, err := controller.userUseCase.GetUser(name)
-	if err != nil {
-		c.JSON(http.StatusNoContent, struct{}{})
-	} else {
+func (controller UserController) GetUser() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		name := c.Param("name")
+		user, err := controller.userUseCase.GetUser(name)
+		if err != nil {
+			c.Error(err)
+			return
+		}
 		c.JSON(http.StatusOK, user)
 	}
 }
