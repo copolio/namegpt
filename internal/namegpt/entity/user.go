@@ -2,7 +2,7 @@ package entity
 
 import (
 	"github.com/copolio/namegpt/config"
-	"github.com/copolio/namegpt/pkg/database/mysql"
+	"github.com/copolio/namegpt/pkg/database"
 	"gorm.io/gorm"
 	"log"
 )
@@ -13,10 +13,9 @@ type User struct {
 }
 
 func init() {
-	curConfig := config.Get()
-	if curConfig.DdlAuto == config.CREATE {
+	if config.NameGptAppConfig.Mysql.Ddl == database.CREATE {
 		log.Default().Println("Start creating USER table")
-		err := mysql.GetGormDB().AutoMigrate(&User{})
+		err := config.GetGormDB().AutoMigrate(&User{})
 		if err != nil {
 			log.Default().Fatal("Error creating USER table: " + err.Error())
 		}

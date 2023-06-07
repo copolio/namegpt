@@ -2,7 +2,7 @@ package entity
 
 import (
 	"github.com/copolio/namegpt/config"
-	"github.com/copolio/namegpt/pkg/database/mysql"
+	"github.com/copolio/namegpt/pkg/database"
 	"gorm.io/gorm"
 	"log"
 )
@@ -14,10 +14,9 @@ type DomainName struct {
 }
 
 func init() {
-	curConfig := config.Get()
-	if curConfig.DdlAuto == config.CREATE {
+	if config.NameGptAppConfig.Mysql.Ddl == database.CREATE {
 		log.Default().Println("Start creating DOMAIN_NAME table")
-		err := mysql.GetGormDB().AutoMigrate(&DomainName{})
+		err := config.GetGormDB().AutoMigrate(&DomainName{})
 		if err != nil {
 			log.Default().Fatal("Error creating DOMAIN_NAME table: " + err.Error())
 		}

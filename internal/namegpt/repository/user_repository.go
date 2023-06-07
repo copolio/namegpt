@@ -3,9 +3,9 @@ package repository
 import (
 	"errors"
 	"fmt"
+	"github.com/copolio/namegpt/config"
 	"github.com/copolio/namegpt/internal/namegpt/entity"
 	"github.com/copolio/namegpt/internal/namegpt/middleware"
-	"github.com/copolio/namegpt/pkg/database/mysql"
 	"gorm.io/gorm"
 	"net/http"
 )
@@ -21,7 +21,7 @@ type GormUserRepository struct {
 
 func NewUserRepository() UserRepository {
 	return &GormUserRepository{
-		db: mysql.GetGormDB(),
+		db: config.GetGormDB(),
 	}
 }
 

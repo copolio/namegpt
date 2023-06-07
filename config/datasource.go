@@ -1,7 +1,6 @@
-package mysql
+package config
 
 import (
-	"github.com/copolio/namegpt/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
@@ -10,15 +9,20 @@ import (
 var connection *gorm.DB
 
 func init() {
-	conf := config.Get()
-	dsn := conf.DSN
+	dsn := NameGptAppConfig.Mysql.GetMysqlDSN()
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,
 		SkipDefaultTransaction:                   true,
 	})
 	if err != nil {
-		log.Fatal("Error connecting connection: " + err.Error())
+		log.Fatalf("Error connecting MySQL: %v\n", err)
 	}
+	sqlDB, err := db.DB()
+	if err != nil {
+		log.Fatalf("Error retrieving MySQL sql connection: %v\n", err)
+	}
+	sqlDB.SetMaxIdleConns(NameGptAppConfig.Mysql.MaxIdleConn)
+	sqlDB.SetMaxOpenConns(NameGptAppConfig.Mysql.MaxOpenConn)
 	connection = db
 }
 

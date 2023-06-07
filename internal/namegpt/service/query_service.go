@@ -1,10 +1,10 @@
 package service
 
 import (
+	"github.com/copolio/namegpt/config"
 	"github.com/copolio/namegpt/internal/namegpt/entity"
 	"github.com/copolio/namegpt/internal/namegpt/repository"
 	"github.com/copolio/namegpt/pkg/client/chatgpt"
-	"github.com/copolio/namegpt/pkg/database/mysql"
 	"github.com/copolio/namegpt/pkg/dto/request"
 	"gorm.io/gorm"
 )
@@ -26,7 +26,7 @@ type QueryService struct {
 }
 
 func (q QueryService) Handle(request request.SearchDomainNames) (domainNames []entity.DomainName, err error) {
-	db := mysql.GetGormDB()
+	db := config.GetGormDB()
 	err = db.Transaction(func(tx *gorm.DB) error {
 		// Find Or Create Query
 		query, err1 := q.queryRepository.FindOrCreate(tx, &entity.Query{Keyword: request.Keyword})

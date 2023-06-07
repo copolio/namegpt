@@ -1,0 +1,11 @@
+server:
+  port: 8080
+chatgpt:
+  token: Put your token here
+mysql:
+  ddl: CREATE
+  url: dsn
+  user: user
+  password: password
+  maxIdleConn: 10
+  maxOpenConn: 100

@@ -2,7 +2,7 @@ package entity
 
 import (
 	"github.com/copolio/namegpt/config"
-	"github.com/copolio/namegpt/pkg/database/mysql"
+	"github.com/copolio/namegpt/pkg/database"
 	"gorm.io/gorm"
 	"log"
 )
@@ -14,10 +14,9 @@ type Query struct {
 }
 
 func init() {
-	curConfig := config.Get()
-	if curConfig.DdlAuto == config.CREATE {
+	if config.NameGptAppConfig.Mysql.Ddl == database.CREATE {
 		log.Default().Println("Start creating QUERY table")
-		err := mysql.GetGormDB().AutoMigrate(&Query{})
+		err := config.GetGormDB().AutoMigrate(&Query{})
 		if err != nil {
 			log.Default().Fatal("Error creating QUERY table: " + err.Error())
 		}

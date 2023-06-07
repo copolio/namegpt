@@ -6,15 +6,12 @@ import (
 	"fmt"
 	"github.com/copolio/namegpt/config"
 	"github.com/sashabaranov/go-openai"
-	"log"
 )
 
 var client *openai.Client
 
 func init() {
-	curConfig := config.Get()
-	log.Default().Println(curConfig.ChatgptToken)
-	client = openai.NewClient(curConfig.ChatgptToken)
+	client = openai.NewClient(config.NameGptAppConfig.Chatgpt.Token)
 }
 
 func GetSimilarDomains(keyword string) (domains []string, err error) {
