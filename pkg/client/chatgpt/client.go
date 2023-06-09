@@ -22,7 +22,7 @@ func GetSimilarDomains(keyword string) (domains []string, err error) {
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role:    openai.ChatMessageRoleSystem,
-					Content: "You are an assistant that only speaks JSON array. Do not write normal text. Give 50 similar domain names without tld given input",
+					Content: "Given the input below, create JSON array containing 50 similar domain names without tld. Do not write normal text.",
 				},
 				{
 					Role:    openai.ChatMessageRoleUser,
