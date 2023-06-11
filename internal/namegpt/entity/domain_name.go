@@ -9,7 +9,7 @@ import (
 
 type DomainName struct {
 	gorm.Model
-	Name    string `gorm:"type:char(255)"`
+	Name    string `gorm:"type:char(255)" json:"name"`
 	QueryID uint
 }
 
