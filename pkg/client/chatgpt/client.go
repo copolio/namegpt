@@ -44,3 +44,28 @@ func GetSimilarDomains(keyword string) (domains []string, err error) {
 
 	return domains, err
 }
+
+func GetSimilarDomainStream(keyword string) (*openai.ChatCompletionStream, error) {
+	completionStream, err := client.CreateChatCompletionStream(
+		context.Background(),
+		openai.ChatCompletionRequest{
+			Model: openai.GPT3Dot5Turbo,
+			Messages: []openai.ChatCompletionMessage{
+				{
+					Role:    openai.ChatMessageRoleSystem,
+					Content: "Given the input below, create JSON array containing 50 similar, unregistered domain names without tld. Do not write normal text.",
+				},
+				{
+					Role:    openai.ChatMessageRoleUser,
+					Content: keyword,
+				},
+			},
+			Stream: true,
+		},
+	)
+	if err != nil {
+		return nil, fmt.Errorf("ChatGPT Stream failed: %w", err)
+	}
+
+	return completionStream, err
+}
