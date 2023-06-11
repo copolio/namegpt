@@ -6,7 +6,6 @@
     "paths": {
         "/v0/ping": {
             "get": {
-                "description": "This is detail Description.",
                 "consumes": [
                     "application/json"
                 ],
@@ -29,7 +28,6 @@
         },
         "/v0/users": {
             "post": {
-                "description": "Creates a user in database.",
                 "consumes": [
                     "application/json"
                 ],
@@ -63,7 +61,6 @@
         },
         "/v0/users/{name}": {
             "get": {
-                "description": "Gets a user info from database.",
                 "consumes": [
                     "application/json"
                 ],
@@ -95,7 +92,6 @@
         },
         "/v1/search": {
             "get": {
-                "description": "Creates a user in database.",
                 "produces": [
                     "application/json"
                 ],

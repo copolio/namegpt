@@ -18,7 +18,8 @@ func main() {
 	swagger.SwaggerInfo.Version = "1.0"
 	swagger.SwaggerInfo.BasePath = "/api"
 	ginEngine := gin.Default()
-	ginEngine.Use(middleware.ErrorHandler())
+	ginEngine.Use(middleware.Cors)
+	ginEngine.Use(middleware.ErrorHandler)
 	ginEngine.GET("/swagger-ui/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	router.SetV0Routes(ginEngine)
 	router.SetV1Routes(ginEngine)

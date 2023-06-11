@@ -8,7 +8,7 @@ const docTemplate = `{
     "schemes": {{ marshal .Schemes }},
     "swagger": "2.0",
     "info": {
-        "description": "{{escape .MetaData}}",
+        "description": "{{escape .Description}}",
         "title": "{{.Title}}",
         "contact": {},
         "version": "{{.Version}}"
@@ -18,7 +18,6 @@ const docTemplate = `{
     "paths": {
         "/v0/ping": {
             "get": {
-                "description": "This is detail MetaData.",
                 "consumes": [
                     "application/json"
                 ],
@@ -41,7 +40,6 @@ const docTemplate = `{
         },
         "/v0/users": {
             "post": {
-                "description": "Creates a user in database.",
                 "consumes": [
                     "application/json"
                 ],
@@ -75,7 +73,6 @@ const docTemplate = `{
         },
         "/v0/users/{name}": {
             "get": {
-                "description": "Gets a user info from database.",
                 "consumes": [
                     "application/json"
                 ],
@@ -107,7 +104,6 @@ const docTemplate = `{
         },
         "/v1/search": {
             "get": {
-                "description": "Creates a user in database.",
                 "produces": [
                     "application/json"
                 ],

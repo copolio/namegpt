@@ -19,8 +19,10 @@ func (e *ResponseStatusError) Error() string {
 	return e.Message
 }
 
-func ErrorHandler() gin.HandlerFunc {
-	return func(c *gin.Context) {
+var ErrorHandler gin.HandlerFunc
+
+func init() {
+	ErrorHandler = func(c *gin.Context) {
 		c.Next()
 		for _, err := range c.Errors {
 			log.Default().Printf("Error: %v\n", err)
