@@ -11,29 +11,29 @@ import (
 )
 
 type UserRepository interface {
-	Save(user *entity.User) (*entity.User, error)
+	Save(user entity.User) (*entity.User, error)
 	FindByName(name string) (*entity.User, error)
 }
 
-type GormUserRepository struct {
+type UserGormRepository struct {
 	db *gorm.DB
 }
 
 func NewUserRepository() UserRepository {
-	return &GormUserRepository{
+	return &UserGormRepository{
 		db: config.GetGormDB(),
 	}
 }
 
-func (u GormUserRepository) Save(user *entity.User) (*entity.User, error) {
+func (u UserGormRepository) Save(user entity.User) (*entity.User, error) {
 	err := u.db.Transaction(func(tx2 *gorm.DB) error {
 		result := tx2.Save(user)
 		return result.Error
 	})
-	return user, err
+	return &user, err
 }
 
-func (u GormUserRepository) FindByName(name string) (*entity.User, error) {
+func (u UserGormRepository) FindByName(name string) (*entity.User, error) {
 	var user entity.User
 	result := u.db.Where(&entity.User{Name: name}).First(&user)
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {

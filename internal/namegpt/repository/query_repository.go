@@ -1,25 +1,34 @@
 package repository
 
 import (
+	"github.com/copolio/namegpt/config"
 	"github.com/copolio/namegpt/internal/namegpt/entity"
 	"gorm.io/gorm"
 )
 
 type QueryRepository interface {
-	FindOrCreate(tx *gorm.DB, query *entity.Query) (*entity.Query, error)
+	WithTransaction(transaction any)
+	FindOrCreate(query entity.Query) (*entity.Query, error)
 }
 
 func NewQueryRepository() QueryRepository {
-	return &GormQueryRepository{}
+	return &QueryGormRepository{
+		tx: config.GetGormDB(),
+	}
 }
 
-type GormQueryRepository struct {
+type QueryGormRepository struct {
+	tx *gorm.DB
 }
 
-func (g GormQueryRepository) FindOrCreate(tx *gorm.DB, query *entity.Query) (*entity.Query, error) {
-	err := tx.Transaction(func(tx2 *gorm.DB) error {
+func (g QueryGormRepository) WithTransaction(transaction any) {
+	g.tx = transaction.(*gorm.DB)
+}
+
+func (g QueryGormRepository) FindOrCreate(query entity.Query) (*entity.Query, error) {
+	err := g.tx.Transaction(func(tx2 *gorm.DB) error {
 		result := tx2.Preload("DomainNames").Where(query).FirstOrCreate(query)
 		return result.Error
 	})
-	return query, err
+	return &query, err
 }

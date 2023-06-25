@@ -21,7 +21,7 @@ func NewUserUseCase() UserUseCase {
 }
 
 func (u UserService) CreateUser(name string) (*entity.User, error) {
-	return u.userRepository.Save(&entity.User{
+	return u.userRepository.Save(entity.User{
 		Name: name,
 	})
 }
