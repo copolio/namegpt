@@ -24,7 +24,7 @@ func SetV0Routes(router *gin.Engine) *gin.Engine {
 // @Tags v0
 // @Accept  json
 // @Produce  json
-// @Router /v0/ping [get]
+// @Router /api/v0/ping [get]
 // @Success 200 {object} string
 func ping() func(c *gin.Context) {
 	return func(c *gin.Context) {

@@ -34,6 +34,28 @@ definitions:
     required:
     - name
     type: object
+  github_com_copolio_namegpt_pkg_dto_request.RecommendDomainNames:
+    properties:
+      description:
+        type: string
+      previousResults:
+        items:
+          type: string
+        type: array
+      userId:
+        type: string
+    required:
+    - description
+    type: object
+  github_com_copolio_namegpt_pkg_dto_request.SimilarDomainNames:
+    properties:
+      keyword:
+        type: string
+      user:
+        type: string
+    required:
+    - keyword
+    type: object
   gorm.DeletedAt:
     properties:
       time:
@@ -45,7 +67,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /v0/ping:
+  /api/v0/ping:
     get:
       consumes:
       - application/json
@@ -59,7 +81,7 @@ paths:
       summary: Pong!
       tags:
       - v0
-  /v0/users:
+  /api/v0/users:
     post:
       consumes:
       - application/json
@@ -80,7 +102,7 @@ paths:
       summary: Creates a user.
       tags:
       - v0
-  /v0/users/{name}:
+  /api/v0/users/{name}:
     get:
       consumes:
       - application/json
@@ -100,16 +122,38 @@ paths:
       summary: Gets a user info by name.
       tags:
       - v0
-  /v1/search:
-    get:
+  /api/v1/domains/recommendations:
+    post:
+      consumes:
+      - application/json
       parameters:
-      - in: query
-        name: keyword
-        required: true
-        type: string
-      - in: query
+      - description: Generate domain name recommendation
+        in: body
         name: user
-        type: string
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_copolio_namegpt_pkg_dto_request.RecommendDomainNames'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: domain
+          schema:
+            items:
+              type: string
+            type: array
+      summary: Generates domain names in server sent event.
+      tags:
+      - v1
+  /api/v1/domains/similar-names:
+    post:
+      parameters:
+      - description: Generate similar domain name
+        in: body
+        name: q
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_copolio_namegpt_pkg_dto_request.SimilarDomainNames'
       produces:
       - application/json
       responses:

@@ -45,7 +45,7 @@ func GetSimilarDomains(keyword string) (domains []string, err error) {
 	return domains, err
 }
 
-func GetSimilarDomainStream(keyword string) (*openai.ChatCompletionStream, error) {
+func GetRecommendedDomainStream(keyword string) (*openai.ChatCompletionStream, error) {
 	completionStream, err := client.CreateChatCompletionStream(
 		context.Background(),
 		openai.ChatCompletionRequest{
@@ -53,7 +53,7 @@ func GetSimilarDomainStream(keyword string) (*openai.ChatCompletionStream, error
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role:    openai.ChatMessageRoleSystem,
-					Content: "Given the input below, create JSON array containing 50 similar, unregistered domain names without tld. Do not write normal text.",
+					Content: "Given the description below, create JSON array containing 50 recommended domain names without tld. Do not write normal text.",
 				},
 				{
 					Role:    openai.ChatMessageRoleUser,

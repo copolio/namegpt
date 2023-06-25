@@ -10,7 +10,7 @@ import (
 )
 
 type QueryUseCase interface {
-	Handle(request request.SearchDomainNames) (domainNames []entity.DomainName, err error)
+	Handle(request request.SimilarDomainNames) (domainNames []entity.DomainName, err error)
 }
 
 func NewQueryUseCase() QueryUseCase {
@@ -25,7 +25,7 @@ type QueryService struct {
 	queryHistoryRepository repository.QueryHistoryRepository
 }
 
-func (q QueryService) Handle(request request.SearchDomainNames) (domainNames []entity.DomainName, err error) {
+func (q QueryService) Handle(request request.SimilarDomainNames) (domainNames []entity.DomainName, err error) {
 	db := config.GetGormDB()
 	err = db.Transaction(func(tx *gorm.DB) error {
 		// Find Or Create Query

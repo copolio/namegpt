@@ -16,7 +16,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/v0/ping": {
+        "/api/v0/ping": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -38,7 +38,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v0/users": {
+        "/api/v0/users": {
             "post": {
                 "consumes": [
                     "application/json"
@@ -71,7 +71,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v0/users/{name}": {
+        "/api/v0/users/{name}": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -102,8 +102,44 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/search": {
-            "get": {
+        "/api/v1/domains/recommendations": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "v1"
+                ],
+                "summary": "Generates domain names in server sent event.",
+                "parameters": [
+                    {
+                        "description": "Generate domain name recommendation",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_copolio_namegpt_pkg_dto_request.RecommendDomainNames"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "domain",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/domains/similar-names": {
+            "post": {
                 "produces": [
                     "application/json"
                 ],
@@ -113,15 +149,13 @@ const docTemplate = `{
                 "summary": "Get similar domain names given input",
                 "parameters": [
                     {
-                        "type": "string",
-                        "name": "keyword",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "name": "user",
-                        "in": "query"
+                        "description": "Generate similar domain name",
+                        "name": "q",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_copolio_namegpt_pkg_dto_request.SimilarDomainNames"
+                        }
                     }
                 ],
                 "responses": {
@@ -189,6 +223,40 @@ const docTemplate = `{
             ],
             "properties": {
                 "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_copolio_namegpt_pkg_dto_request.RecommendDomainNames": {
+            "type": "object",
+            "required": [
+                "description"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "previousResults": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "userId": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_copolio_namegpt_pkg_dto_request.SimilarDomainNames": {
+            "type": "object",
+            "required": [
+                "keyword"
+            ],
+            "properties": {
+                "keyword": {
+                    "type": "string"
+                },
+                "user": {
                     "type": "string"
                 }
             }

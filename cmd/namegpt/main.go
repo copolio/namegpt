@@ -16,7 +16,6 @@ func main() {
 	swagger.SwaggerInfo.Title = "NameGPT API"
 	swagger.SwaggerInfo.Description = "This is a NameGPT API server."
 	swagger.SwaggerInfo.Version = "1.0"
-	swagger.SwaggerInfo.BasePath = "/api"
 	ginEngine := gin.Default()
 	ginEngine.Use(middleware.Cors)
 	ginEngine.Use(middleware.ErrorHandler)

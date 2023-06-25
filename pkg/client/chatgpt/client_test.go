@@ -63,7 +63,7 @@ func TestGetSimilarDomainStream(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := GetSimilarDomainStream(tt.args.keyword)
+			got, err := GetRecommendedDomainStream(tt.args.keyword)
 			defer got.Close()
 			fmt.Println("Stream start")
 			var domains = make([]string, 50)
@@ -91,11 +91,11 @@ func TestGetSimilarDomainStream(t *testing.T) {
 			}
 			fmt.Println("Stream end")
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GetSimilarDomainStream() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GetRecommendedDomainStream() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if len(domains) < tt.want {
-				t.Errorf("GetSimilarDomainStream() got = %v, want %v", got, tt.want)
+				t.Errorf("GetRecommendedDomainStream() got = %v, want %v", got, tt.want)
 			}
 		})
 	}

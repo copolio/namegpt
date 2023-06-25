@@ -7,9 +7,10 @@ import (
 
 func SetV1Routes(router *gin.Engine) *gin.Engine {
 	queryController := controller.NewQueryController()
-	v1 := router.Group("/api/v1")
+	v1 := router.Group("/api/v1/domains")
 	{
-		v1.GET("/search", queryController.SearchDomainNames())
+		v1.POST("/similar-names", queryController.GenerateSimilarDomains())
+		v1.POST("/recommendations", queryController.GenerateRecommendedDomains())
 	}
 	return router
 }

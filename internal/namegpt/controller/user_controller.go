@@ -26,7 +26,7 @@ func NewUserController() *UserController {
 // @Param user body request.CreateUser true "Create user request"
 // @Accept  json
 // @Produce  json
-// @Router /v0/users [post]
+// @Router /api/v0/users [post]
 // @Success 200 {object} entity.User "user"
 func (controller UserController) CreateUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -51,7 +51,7 @@ func (controller UserController) CreateUser() gin.HandlerFunc {
 // @Param name path string true "Username"
 // @Accept  json
 // @Produce  json
-// @Router /v0/users/{name} [get]
+// @Router /api/v0/users/{name} [get]
 // @Success 200 {object} entity.User "user"
 func (controller UserController) GetUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
