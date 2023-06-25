@@ -24,7 +24,7 @@ export default function RootLayout({
                 </div>
             </header>
             <main className="flex-grow">{children}</main>
-            <footer className="bg-gray-200 py-4">
+            <footer className="py-4">
                 <div className="max-w-7xl mx-auto px-4">
                     <p className="text-gray-600 text-center">
                         &copy; {new Date().getFullYear()} Copolio. All rights reserved.

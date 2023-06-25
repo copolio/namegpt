@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "openapi": "openapi-generator-cli generate -i http://localhost:8080/swagger-ui/doc.json -g typescript-axios -o /src/utils/clients"
+    "openapi": "openapi-generator-cli generate -i http://localhost:8080/swagger-ui/doc.json -g typescript-axios -o ./src/utils/clients/namegpt"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",

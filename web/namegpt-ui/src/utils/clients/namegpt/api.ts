@@ -119,6 +119,50 @@ export interface GithubComCopolioNamegptPkgDtoRequestCreateUser {
 /**
  * 
  * @export
+ * @interface GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames
+ */
+export interface GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames {
+    /**
+     * 
+     * @type {string}
+     * @memberof GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames
+     */
+    'description': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames
+     */
+    'previousResults'?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames
+     */
+    'userId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames
+ */
+export interface GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames {
+    /**
+     * 
+     * @type {string}
+     * @memberof GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames
+     */
+    'keyword': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames
+     */
+    'user'?: string;
+}
+/**
+ * 
+ * @export
  * @interface GormDeletedAt
  */
 export interface GormDeletedAt {
@@ -148,8 +192,8 @@ export const V0ApiAxiosParamCreator = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v0PingGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/v0/ping`;
+        apiV0PingGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v0/ping`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -179,10 +223,10 @@ export const V0ApiAxiosParamCreator = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v0UsersNameGet: async (name: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiV0UsersNameGet: async (name: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'name' is not null or undefined
-            assertParamExists('v0UsersNameGet', 'name', name)
-            const localVarPath = `/v0/users/{name}`
+            assertParamExists('apiV0UsersNameGet', 'name', name)
+            const localVarPath = `/api/v0/users/{name}`
                 .replace(`{${"name"}}`, encodeURIComponent(String(name)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -213,10 +257,10 @@ export const V0ApiAxiosParamCreator = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v0UsersPost: async (user: GithubComCopolioNamegptPkgDtoRequestCreateUser, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiV0UsersPost: async (user: GithubComCopolioNamegptPkgDtoRequestCreateUser, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'user' is not null or undefined
-            assertParamExists('v0UsersPost', 'user', user)
-            const localVarPath = `/v0/users`;
+            assertParamExists('apiV0UsersPost', 'user', user)
+            const localVarPath = `/api/v0/users`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -258,8 +302,8 @@ export const V0ApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v0PingGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v0PingGet(options);
+        async apiV0PingGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV0PingGet(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -269,8 +313,8 @@ export const V0ApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v0UsersNameGet(name: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GithubComCopolioNamegptInternalNamegptEntityUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v0UsersNameGet(name, options);
+        async apiV0UsersNameGet(name: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GithubComCopolioNamegptInternalNamegptEntityUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV0UsersNameGet(name, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -280,8 +324,8 @@ export const V0ApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v0UsersPost(user: GithubComCopolioNamegptPkgDtoRequestCreateUser, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GithubComCopolioNamegptInternalNamegptEntityUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v0UsersPost(user, options);
+        async apiV0UsersPost(user: GithubComCopolioNamegptPkgDtoRequestCreateUser, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GithubComCopolioNamegptInternalNamegptEntityUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV0UsersPost(user, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -300,8 +344,8 @@ export const V0ApiFactory = function (configuration?: Configuration, basePath?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v0PingGet(options?: any): AxiosPromise<string> {
-            return localVarFp.v0PingGet(options).then((request) => request(axios, basePath));
+        apiV0PingGet(options?: any): AxiosPromise<string> {
+            return localVarFp.apiV0PingGet(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -310,8 +354,8 @@ export const V0ApiFactory = function (configuration?: Configuration, basePath?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v0UsersNameGet(name: string, options?: any): AxiosPromise<GithubComCopolioNamegptInternalNamegptEntityUser> {
-            return localVarFp.v0UsersNameGet(name, options).then((request) => request(axios, basePath));
+        apiV0UsersNameGet(name: string, options?: any): AxiosPromise<GithubComCopolioNamegptInternalNamegptEntityUser> {
+            return localVarFp.apiV0UsersNameGet(name, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -320,8 +364,8 @@ export const V0ApiFactory = function (configuration?: Configuration, basePath?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v0UsersPost(user: GithubComCopolioNamegptPkgDtoRequestCreateUser, options?: any): AxiosPromise<GithubComCopolioNamegptInternalNamegptEntityUser> {
-            return localVarFp.v0UsersPost(user, options).then((request) => request(axios, basePath));
+        apiV0UsersPost(user: GithubComCopolioNamegptPkgDtoRequestCreateUser, options?: any): AxiosPromise<GithubComCopolioNamegptInternalNamegptEntityUser> {
+            return localVarFp.apiV0UsersPost(user, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -340,8 +384,8 @@ export class V0Api extends BaseAPI {
      * @throws {RequiredError}
      * @memberof V0Api
      */
-    public v0PingGet(options?: AxiosRequestConfig) {
-        return V0ApiFp(this.configuration).v0PingGet(options).then((request) => request(this.axios, this.basePath));
+    public apiV0PingGet(options?: AxiosRequestConfig) {
+        return V0ApiFp(this.configuration).apiV0PingGet(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -352,8 +396,8 @@ export class V0Api extends BaseAPI {
      * @throws {RequiredError}
      * @memberof V0Api
      */
-    public v0UsersNameGet(name: string, options?: AxiosRequestConfig) {
-        return V0ApiFp(this.configuration).v0UsersNameGet(name, options).then((request) => request(this.axios, this.basePath));
+    public apiV0UsersNameGet(name: string, options?: AxiosRequestConfig) {
+        return V0ApiFp(this.configuration).apiV0UsersNameGet(name, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -364,8 +408,8 @@ export class V0Api extends BaseAPI {
      * @throws {RequiredError}
      * @memberof V0Api
      */
-    public v0UsersPost(user: GithubComCopolioNamegptPkgDtoRequestCreateUser, options?: AxiosRequestConfig) {
-        return V0ApiFp(this.configuration).v0UsersPost(user, options).then((request) => request(this.axios, this.basePath));
+    public apiV0UsersPost(user: GithubComCopolioNamegptPkgDtoRequestCreateUser, options?: AxiosRequestConfig) {
+        return V0ApiFp(this.configuration).apiV0UsersPost(user, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -378,16 +422,15 @@ export const V1ApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Get similar domain names given input
-         * @param {string} keyword 
-         * @param {string} [user] 
+         * @summary Generates domain names in server sent event.
+         * @param {GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames} user Generate domain name recommendation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1SearchGet: async (keyword: string, user?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'keyword' is not null or undefined
-            assertParamExists('v1SearchGet', 'keyword', keyword)
-            const localVarPath = `/v1/search`;
+        apiV1DomainsRecommendationsPost: async (user: GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'user' is not null or undefined
+            assertParamExists('apiV1DomainsRecommendationsPost', 'user', user)
+            const localVarPath = `/api/v1/domains/recommendations`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -395,23 +438,54 @@ export const V1ApiAxiosParamCreator = function (configuration?: Configuration) {
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (keyword !== undefined) {
-                localVarQueryParameter['keyword'] = keyword;
-            }
-
-            if (user !== undefined) {
-                localVarQueryParameter['user'] = user;
-            }
-
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(user, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get similar domain names given input
+         * @param {GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames} q Generate similar domain name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1DomainsSimilarNamesPost: async (q: GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'q' is not null or undefined
+            assertParamExists('apiV1DomainsSimilarNamesPost', 'q', q)
+            const localVarPath = `/api/v1/domains/similar-names`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(q, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -430,14 +504,24 @@ export const V1ApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Get similar domain names given input
-         * @param {string} keyword 
-         * @param {string} [user] 
+         * @summary Generates domain names in server sent event.
+         * @param {GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames} user Generate domain name recommendation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v1SearchGet(keyword: string, user?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GithubComCopolioNamegptInternalNamegptEntityDomainName>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.v1SearchGet(keyword, user, options);
+        async apiV1DomainsRecommendationsPost(user: GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1DomainsRecommendationsPost(user, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get similar domain names given input
+         * @param {GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames} q Generate similar domain name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiV1DomainsSimilarNamesPost(q: GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GithubComCopolioNamegptInternalNamegptEntityDomainName>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1DomainsSimilarNamesPost(q, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -452,14 +536,23 @@ export const V1ApiFactory = function (configuration?: Configuration, basePath?: 
     return {
         /**
          * 
-         * @summary Get similar domain names given input
-         * @param {string} keyword 
-         * @param {string} [user] 
+         * @summary Generates domain names in server sent event.
+         * @param {GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames} user Generate domain name recommendation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v1SearchGet(keyword: string, user?: string, options?: any): AxiosPromise<Array<GithubComCopolioNamegptInternalNamegptEntityDomainName>> {
-            return localVarFp.v1SearchGet(keyword, user, options).then((request) => request(axios, basePath));
+        apiV1DomainsRecommendationsPost(user: GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames, options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.apiV1DomainsRecommendationsPost(user, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get similar domain names given input
+         * @param {GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames} q Generate similar domain name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiV1DomainsSimilarNamesPost(q: GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames, options?: any): AxiosPromise<Array<GithubComCopolioNamegptInternalNamegptEntityDomainName>> {
+            return localVarFp.apiV1DomainsSimilarNamesPost(q, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -473,15 +566,26 @@ export const V1ApiFactory = function (configuration?: Configuration, basePath?: 
 export class V1Api extends BaseAPI {
     /**
      * 
-     * @summary Get similar domain names given input
-     * @param {string} keyword 
-     * @param {string} [user] 
+     * @summary Generates domain names in server sent event.
+     * @param {GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames} user Generate domain name recommendation
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof V1Api
      */
-    public v1SearchGet(keyword: string, user?: string, options?: AxiosRequestConfig) {
-        return V1ApiFp(this.configuration).v1SearchGet(keyword, user, options).then((request) => request(this.axios, this.basePath));
+    public apiV1DomainsRecommendationsPost(user: GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames, options?: AxiosRequestConfig) {
+        return V1ApiFp(this.configuration).apiV1DomainsRecommendationsPost(user, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get similar domain names given input
+     * @param {GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames} q Generate similar domain name
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof V1Api
+     */
+    public apiV1DomainsSimilarNamesPost(q: GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames, options?: AxiosRequestConfig) {
+        return V1ApiFp(this.configuration).apiV1DomainsSimilarNamesPost(q, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
