@@ -6,8 +6,7 @@ import (
 )
 
 type QueryHistoryRepository interface {
-	WithTransaction(transaction any)
-	Save(queryHistory entity.QueryHistory) (*entity.QueryHistory, error)
+	CrudRepository[entity.QueryHistory, uint]
 }
 
 func NewQueryHistoryRepository() QueryHistoryRepository {

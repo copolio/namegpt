@@ -11,7 +11,7 @@ import (
 )
 
 type UserRepository interface {
-	Save(user entity.User) (*entity.User, error)
+	CrudRepository[entity.User, uint]
 	FindByName(name string) (*entity.User, error)
 }
 
