@@ -3,6 +3,7 @@ package config
 import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 	"log"
 )
 
@@ -13,6 +14,7 @@ func init() {
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,
 		SkipDefaultTransaction:                   true,
+		Logger:                                   logger.Default.LogMode(logger.Info),
 	})
 	if err != nil {
 		log.Fatalf("Error connecting MySQL: %v\n", err)
