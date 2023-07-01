@@ -16,23 +16,20 @@ type UserRepository interface {
 }
 
 type UserGormRepository struct {
-	db *gorm.DB
+	GormRepository[entity.User, uint]
 }
 
 func NewUserRepository() UserRepository {
 	return &UserGormRepository{
-		db: config.GetGormDB(),
+		GormRepository: GormRepository[entity.User, uint]{
+			tx: config.GetGormDB(),
+		},
 	}
 }
 
-func (u UserGormRepository) Save(user entity.User) (*entity.User, error) {
-	result := u.db.Save(&user)
-	return &user, result.Error
-}
-
-func (u UserGormRepository) FindByName(name string) (*entity.User, error) {
+func (r UserGormRepository) FindByName(name string) (*entity.User, error) {
 	var user entity.User
-	result := u.db.Where(&entity.User{Name: name}).First(&user)
+	result := r.tx.Where(&entity.User{Name: name}).Take(&user)
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 		return nil, fmt.Errorf("user repository error: %w", &middleware.ResponseStatusError{
 			Code:     http.StatusNotFound,
