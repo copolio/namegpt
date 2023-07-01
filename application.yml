@@ -4,8 +4,10 @@ chatgpt:
   token: Put your token here
 mysql:
   ddl: CREATE
-  url: dsn
-  user: user
-  password: password
+  host: localhost:3306
+  protocol: tcp
+  schema: name_gpt
+  user: root
+  password: test
   maxIdleConn: 10
-  maxOpenConn: 100
+  maxOpenConn: 10
