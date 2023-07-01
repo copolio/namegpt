@@ -24,9 +24,6 @@ func (d DomainNameGormRepository) WithTransaction(transaction any) {
 }
 
 func (d DomainNameGormRepository) Save(domainName entity.DomainName) (*entity.DomainName, error) {
-	err := d.tx.Transaction(func(tx2 *gorm.DB) error {
-		tx3 := tx2.Save(domainName)
-		return tx3.Error
-	})
-	return &domainName, err
+	result := d.tx.Save(&domainName)
+	return &domainName, result.Error
 }

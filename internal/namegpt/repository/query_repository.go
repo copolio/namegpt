@@ -26,9 +26,6 @@ func (g QueryGormRepository) WithTransaction(transaction any) {
 }
 
 func (g QueryGormRepository) FindOrCreate(query entity.Query) (*entity.Query, error) {
-	err := g.tx.Transaction(func(tx2 *gorm.DB) error {
-		result := tx2.Preload("DomainNames").Where(query).FirstOrCreate(query)
-		return result.Error
-	})
-	return &query, err
+	result := g.tx.Preload("DomainNames").Where(&query).FirstOrCreate(&query)
+	return &query, result.Error
 }

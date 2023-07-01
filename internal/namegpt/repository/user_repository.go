@@ -26,11 +26,8 @@ func NewUserRepository() UserRepository {
 }
 
 func (u UserGormRepository) Save(user entity.User) (*entity.User, error) {
-	err := u.db.Transaction(func(tx2 *gorm.DB) error {
-		result := tx2.Save(user)
-		return result.Error
-	})
-	return &user, err
+	result := u.db.Save(&user)
+	return &user, result.Error
 }
 
 func (u UserGormRepository) FindByName(name string) (*entity.User, error) {

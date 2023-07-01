@@ -26,9 +26,6 @@ func (g QueryHistoryGormRepository) WithTransaction(transaction any) {
 }
 
 func (g QueryHistoryGormRepository) Save(queryHistory entity.QueryHistory) (*entity.QueryHistory, error) {
-	err := g.tx.Transaction(func(tx2 *gorm.DB) error {
-		result := tx2.Save(queryHistory)
-		return result.Error
-	})
-	return &queryHistory, err
+	result := g.tx.Save(&queryHistory)
+	return &queryHistory, result.Error
 }
