@@ -1,8 +1,13 @@
 package service
 
 import (
+	"errors"
+	"fmt"
 	"github.com/copolio/namegpt/internal/namegpt/entity"
+	"github.com/copolio/namegpt/internal/namegpt/middleware"
 	"github.com/copolio/namegpt/internal/namegpt/repository"
+	"gorm.io/gorm"
+	"net/http"
 )
 
 type UserUseCase interface {
@@ -27,5 +32,13 @@ func (u UserService) CreateUser(name string) (*entity.User, error) {
 }
 
 func (u UserService) GetUser(name string) (*entity.User, error) {
-	return u.userRepository.FindByName(name)
+	user, err := u.userRepository.FindByName(name)
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, fmt.Errorf("user service error: %w", &middleware.ResponseStatusError{
+			Code:     http.StatusNotFound,
+			Message:  fmt.Sprintf("user %s does not exist", name),
+			MetaData: err.Error(),
+		})
+	}
+	return user, err
 }
