@@ -5,11 +5,11 @@ import (
 	"github.com/copolio/namegpt/internal/namegpt/entity"
 	"github.com/copolio/namegpt/internal/namegpt/repository"
 	"github.com/copolio/namegpt/pkg/client/chatgpt"
-	"github.com/copolio/namegpt/pkg/dto/request"
+	"github.com/copolio/namegpt/pkg/dto"
 )
 
 type QueryUseCase interface {
-	Handle(request request.SimilarDomainNames) (domainNames []entity.DomainName, err error)
+	Handle(request dto.SimilarDomainNames) (domainNames []entity.DomainName, err error)
 }
 
 func NewQueryUseCase() QueryUseCase {
@@ -26,7 +26,7 @@ type QueryService struct {
 	domainNameRepository   repository.DomainNameRepository
 }
 
-func (q QueryService) Handle(request request.SimilarDomainNames) (domainNames []entity.DomainName, err error) {
+func (q QueryService) Handle(request dto.SimilarDomainNames) (domainNames []entity.DomainName, err error) {
 	db := config.GetGormDB()
 	tx := db.Begin()
 	defer func() {
@@ -37,7 +37,7 @@ func (q QueryService) Handle(request request.SimilarDomainNames) (domainNames []
 
 	// Find Or Create Query
 	q.queryRepository.WithTransaction(tx)
-	query, err1 := q.queryRepository.FindOrCreate(entity.Query{Keyword: request.Keyword})
+	query, err1 := q.queryRepository.FindOrCreate(entity.Query{Keyword: request.Keyword, Type: entity.SIMILAR})
 	if err1 != nil {
 		tx.Rollback()
 		return nil, err1

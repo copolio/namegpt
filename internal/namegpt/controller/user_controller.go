@@ -3,7 +3,7 @@ package controller
 import (
 	_ "github.com/copolio/namegpt/internal/namegpt/entity"
 	"github.com/copolio/namegpt/internal/namegpt/service"
-	"github.com/copolio/namegpt/pkg/dto/request"
+	"github.com/copolio/namegpt/pkg/dto"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"net/http"
@@ -30,7 +30,7 @@ func NewUserController() *UserController {
 // @Success 200 {object} entity.User "user"
 func (controller UserController) CreateUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		createUser := request.CreateUser{}
+		createUser := dto.CreateUser{}
 		if err := c.ShouldBindBodyWith(&createUser, binding.JSON); err != nil {
 			c.Error(err)
 			return

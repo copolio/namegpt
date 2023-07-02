@@ -6,7 +6,7 @@ import (
 	_ "github.com/copolio/namegpt/internal/namegpt/entity"
 	"github.com/copolio/namegpt/internal/namegpt/service"
 	"github.com/copolio/namegpt/pkg/client/chatgpt"
-	"github.com/copolio/namegpt/pkg/dto/request"
+	"github.com/copolio/namegpt/pkg/dto"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"io"
@@ -32,7 +32,7 @@ func NewQueryController() *QueryController {
 // @Success 200 {array} entity.DomainName "domain names"
 func (q QueryController) GenerateSimilarDomains() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		request := request.SimilarDomainNames{}
+		request := dto.SimilarDomainNames{}
 		if err := c.ShouldBindBodyWith(&request, binding.JSON); err != nil {
 			c.Error(err)
 			return
@@ -58,7 +58,7 @@ func (q QueryController) GenerateSimilarDomains() gin.HandlerFunc {
 // @Success 201 {object} []string "domain"
 func (q QueryController) GenerateRecommendedDomains() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		request := request.RecommendDomainNames{}
+		request := dto.RecommendDomainNames{}
 		if err := c.ShouldBindBodyWith(&request, binding.JSON); err != nil {
 			c.Error(err)
 			return

@@ -7,9 +7,17 @@ import (
 	"log"
 )
 
+type QueryType string
+
+const (
+	SIMILAR QueryType = "SIMILAR"
+	SUGGEST QueryType = "SUGGEST"
+)
+
 type Query struct {
 	gorm.Model
-	Keyword     string `gorm:"uniqueIndex;type:char(255)"`
+	Keyword     string    `gorm:"index:idx_query"`
+	Type        QueryType `gorm:"index:idx_query"`
 	DomainNames []DomainName
 }
 
