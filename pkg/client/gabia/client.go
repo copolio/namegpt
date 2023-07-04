@@ -53,8 +53,7 @@ type RegistCheckResult struct {
 	Stype              int           `json:"stype"`
 }
 
-func CheckDomainRegist(domain string) (*RegistCheckResult, error) {
-	//domain=namegpt.tv&tab=recommend&listindex=12
+func CheckDomainRegist(domain string) (registCheckResult *RegistCheckResult, err error) {
 	res, err := http.PostForm("https://domain.gabia.com/ajax_lib/check/regist.php", url.Values{"domain": {domain}, "tab": {"recommend"}})
 	if err != nil {
 		return nil, err

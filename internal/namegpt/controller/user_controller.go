@@ -23,7 +23,7 @@ func NewUserController() *UserController {
 // @Summary Creates a user.
 // @MetaData Creates a user in database.
 // @Tags v0
-// @Param user body request.CreateUser true "Create user request"
+// @Param user body dto.CreateUser true "Create user request"
 // @Accept  json
 // @Produce  json
 // @Router /api/v0/users [post]

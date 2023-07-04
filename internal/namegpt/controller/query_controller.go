@@ -3,9 +3,9 @@ package controller
 import (
 	"errors"
 	"fmt"
-	_ "github.com/copolio/namegpt/internal/namegpt/entity"
 	"github.com/copolio/namegpt/internal/namegpt/service"
 	"github.com/copolio/namegpt/pkg/client/chatgpt"
+	_ "github.com/copolio/namegpt/pkg/client/gabia"
 	"github.com/copolio/namegpt/pkg/dto"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -26,10 +26,10 @@ func NewQueryController() *QueryController {
 // @Summary Get similar domain names given input
 // @MetaData Creates a user in database.
 // @Tags v1
-// @Param q body request.SimilarDomainNames true "Generate similar domain name"
+// @Param q body dto.SimilarDomainNames true "Generate similar domain name"
 // @Produce  json
 // @Router /api/v1/domains/similar-names [post]
-// @Success 200 {array} entity.DomainName "domain names"
+// @Success 200 {array} gabia.RegistCheckResult "domain names"
 func (q QueryController) GenerateSimilarDomains() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		request := dto.SimilarDomainNames{}
@@ -51,7 +51,7 @@ func (q QueryController) GenerateSimilarDomains() gin.HandlerFunc {
 // @Summary Generates domain names in server sent event.
 // @MetaData Generates domain recommendations
 // @Tags v1
-// @Param user body request.RecommendDomainNames true "Generate domain name recommendation"
+// @Param user body dto.RecommendDomainNames true "Generate domain name recommendation"
 // @Accept  json
 // @Produce  json
 // @Router /api/v1/domains/recommendations [post]

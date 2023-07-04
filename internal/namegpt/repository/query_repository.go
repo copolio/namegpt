@@ -11,18 +11,18 @@ type QueryRepository interface {
 }
 
 func NewQueryRepository() QueryRepository {
-	return &QueryGormRepository{
+	return &queryGormRepository{
 		GormRepository: GormRepository[entity.Query, uint]{
 			tx: config.GetGormDB(),
 		},
 	}
 }
 
-type QueryGormRepository struct {
+type queryGormRepository struct {
 	GormRepository[entity.Query, uint]
 }
 
-func (r QueryGormRepository) FindOrCreate(query entity.Query) (*entity.Query, error) {
+func (r queryGormRepository) FindOrCreate(query entity.Query) (*entity.Query, error) {
 	result := r.tx.Preload("DomainNames").Where(&query).FirstOrCreate(&query)
 	return &query, result.Error
 }

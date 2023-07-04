@@ -5,11 +5,12 @@ import (
 	"github.com/copolio/namegpt/internal/namegpt/entity"
 	"github.com/copolio/namegpt/internal/namegpt/repository"
 	"github.com/copolio/namegpt/pkg/client/chatgpt"
+	"github.com/copolio/namegpt/pkg/client/gabia"
 	"github.com/copolio/namegpt/pkg/dto"
 )
 
 type QueryUseCase interface {
-	Handle(request dto.SimilarDomainNames) (domainNames []entity.DomainName, err error)
+	Handle(request dto.SimilarDomainNames) (domainNames [][]*gabia.RegistCheckResult, err error)
 }
 
 func NewQueryUseCase() QueryUseCase {
@@ -26,7 +27,7 @@ type QueryService struct {
 	domainNameRepository   repository.DomainNameRepository
 }
 
-func (q QueryService) Handle(request dto.SimilarDomainNames) (domainNames []entity.DomainName, err error) {
+func (q QueryService) Handle(request dto.SimilarDomainNames) (registCheckResults [][]*gabia.RegistCheckResult, err error) {
 	db := config.GetGormDB()
 	tx := db.Begin()
 	defer func() {
@@ -55,7 +56,8 @@ func (q QueryService) Handle(request dto.SimilarDomainNames) (domainNames []enti
 	}
 	// Return cached result if exists
 	if len(query.DomainNames) > 0 {
-		return query.DomainNames, tx.Commit().Error
+		result := mapDomainNameToGenerateDomainNamesResult(query.DomainNames)
+		return result, tx.Commit().Error
 	}
 
 	// Ask ChatGPT for domains
@@ -66,6 +68,7 @@ func (q QueryService) Handle(request dto.SimilarDomainNames) (domainNames []enti
 	}
 
 	q.domainNameRepository.WithTransaction(tx)
+	var domainNames []entity.DomainName
 	for _, domain := range domains {
 		domainName, err4 := q.domainNameRepository.Save(entity.DomainName{
 			Name:    domain,
@@ -78,5 +81,28 @@ func (q QueryService) Handle(request dto.SimilarDomainNames) (domainNames []enti
 		domainNames = append(domainNames, *domainName)
 	}
 
-	return domainNames, tx.Commit().Error
+	return mapDomainNameToGenerateDomainNamesResult(domainNames), tx.Commit().Error
+}
+
+func mapDomainNameToGenerateDomainNamesResult(domainNames []entity.DomainName) [][]*gabia.RegistCheckResult {
+	suffixes := []string{".com", ".co.kr", ".kr", ".shop", ".store", ".net", ".site", ".org", ".me", ".한국", ".io",
+		".biz", ".tv", ".info", ".xyz", ".ai", ".company", ".app", ".us", ".jp", ".cn", ".vn", ".tw", ".im", ".club", ".co"}
+
+	result := make([][]*gabia.RegistCheckResult, len(domainNames))
+	for i := 0; i < len(domainNames); i++ {
+		result[i] = make([]*gabia.RegistCheckResult, len(suffixes))
+	}
+
+	for i, domainName := range domainNames {
+		for j, suffix := range suffixes {
+			domain := domainName.Name + suffix
+			registCheckResult, err := gabia.CheckDomainRegist(domain)
+			if err != nil {
+				result[i][j] = nil
+			}
+			result[i][j] = registCheckResult
+		}
+	}
+
+	return result
 }
