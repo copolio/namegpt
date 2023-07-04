@@ -19,11 +19,11 @@ func TestGetSimilarDomains(t *testing.T) {
 		wantErr     bool
 	}{
 		{
-			name: "Successful request to openai api and return list of at least 50 domains",
+			name: "Successful request to openai api and return list of at least 10 domains",
 			args: args{
 				keyword: "test.com",
 			},
-			wantDomains: 50,
+			wantDomains: 10,
 			wantErr:     false,
 		},
 	}
