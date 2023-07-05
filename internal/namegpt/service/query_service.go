@@ -7,6 +7,7 @@ import (
 	"github.com/copolio/namegpt/pkg/client/chatgpt"
 	"github.com/copolio/namegpt/pkg/client/gabia"
 	"github.com/copolio/namegpt/pkg/dto"
+	"sync"
 )
 
 type QueryUseCase interface {
@@ -85,24 +86,30 @@ func (q QueryService) Handle(request dto.SimilarDomainNames) (registCheckResults
 }
 
 func mapDomainNameToGenerateDomainNamesResult(domainNames []entity.DomainName) [][]*gabia.RegistCheckResult {
-	suffixes := []string{".com", ".co.kr", ".kr", ".shop", ".store", ".net", ".site", ".org", ".me", ".한국", ".io",
-		".biz", ".tv", ".info", ".xyz", ".ai", ".company", ".app", ".us", ".jp", ".cn", ".vn", ".tw", ".im", ".club", ".co"}
+	//suffixes := []string{".com", ".co.kr", ".kr", ".shop", ".store", ".net", ".site", ".org", ".me", ".한국", ".io",
+	//	".biz", ".tv", ".info", ".xyz", ".ai", ".company", ".app", ".us", ".jp", ".cn", ".vn", ".tw", ".im", ".club", ".co"}
+	suffixes := []string{".com"}
 
 	result := make([][]*gabia.RegistCheckResult, len(domainNames))
 	for i := 0; i < len(domainNames); i++ {
 		result[i] = make([]*gabia.RegistCheckResult, len(suffixes))
 	}
-
+	wg := sync.WaitGroup{}
 	for i, domainName := range domainNames {
 		for j, suffix := range suffixes {
 			domain := domainName.Name + suffix
-			registCheckResult, err := gabia.CheckDomainRegist(domain)
-			if err != nil {
-				result[i][j] = nil
-			}
-			result[i][j] = registCheckResult
+			wg.Add(1)
+			go func(domain string, i int, j int) {
+				registCheckResult, err := gabia.CheckDomainRegist(domain)
+				if err != nil {
+					result[i][j] = nil
+					return
+				}
+				result[i][j] = registCheckResult
+				wg.Done()
+			}(domain, i, j)
 		}
 	}
-
+	wg.Wait()
 	return result
 }
