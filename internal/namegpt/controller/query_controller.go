@@ -29,7 +29,7 @@ func NewQueryController() *QueryController {
 // @Param q body dto.SimilarDomainNames true "Generate similar domain name"
 // @Produce  json
 // @Router /api/v1/domains/similar-names [post]
-// @Success 200 {array} gabia.RegistCheckResult "domain names"
+// @Success 200 {array} dto.GenerateDomainNameResult "domain names"
 func (q QueryController) GenerateSimilarDomains() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		request := dto.SimilarDomainNames{}

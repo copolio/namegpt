@@ -164,7 +164,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/github_com_copolio_namegpt_pkg_client_gabia.RegistCheckResult"
+                                "$ref": "#/definitions/github_com_copolio_namegpt_pkg_dto.GenerateDomainNameResult"
                             }
                         }
                     }
@@ -193,141 +193,6 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_copolio_namegpt_pkg_client_gabia.RegistCheckResult": {
-            "type": "object",
-            "properties": {
-                "app_price": {
-                    "type": "string"
-                },
-                "backorder_date": {
-                    "type": "string"
-                },
-                "cart": {
-                    "type": "string"
-                },
-                "category_end": {
-                    "type": "string"
-                },
-                "category_path": {
-                    "type": "string"
-                },
-                "check": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "display_tooltip": {
-                    "type": "string"
-                },
-                "domain": {
-                    "type": "string"
-                },
-                "domain_tld": {
-                    "type": "string"
-                },
-                "event": {
-                    "type": "string"
-                },
-                "event_flag": {
-                    "type": "string"
-                },
-                "extra_info": {},
-                "flag": {
-                    "type": "string"
-                },
-                "input_source": {
-                    "type": "string"
-                },
-                "is_new": {
-                    "type": "string"
-                },
-                "is_premium": {
-                    "type": "string"
-                },
-                "managed": {
-                    "type": "string"
-                },
-                "new_flag": {
-                    "type": "string"
-                },
-                "parent_index": {
-                    "type": "boolean"
-                },
-                "premium_extend_price": {
-                    "type": "array",
-                    "items": {}
-                },
-                "price": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "app_price": {
-                                "type": "integer"
-                            },
-                            "discount_price": {
-                                "type": "integer"
-                            },
-                            "fixed_price": {
-                                "type": "integer"
-                            },
-                            "fixed_price_vat": {
-                                "type": "integer"
-                            },
-                            "offer_year": {
-                                "type": "integer"
-                            },
-                            "save_point": {
-                                "type": "integer"
-                            },
-                            "vat_price": {
-                                "type": "integer"
-                            },
-                            "view_app_price": {
-                                "type": "integer"
-                            },
-                            "view_price_value": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "price_detail": {
-                    "type": "string"
-                },
-                "puny_domain": {
-                    "type": "string"
-                },
-                "reserve": {
-                    "type": "string"
-                },
-                "reserve_gubun": {
-                    "type": "string"
-                },
-                "result": {
-                    "type": "string"
-                },
-                "special_flag": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "string"
-                },
-                "stype": {
-                    "type": "integer"
-                },
-                "tab": {
-                    "type": "string"
-                },
-                "whois": {
-                    "type": "string"
-                },
-                "whois_domain": {
-                    "type": "string"
-                }
-            }
-        },
         "github_com_copolio_namegpt_pkg_dto.CreateUser": {
             "type": "object",
             "required": [
@@ -336,6 +201,37 @@ const docTemplate = `{
             "properties": {
                 "name": {
                     "type": "string"
+                }
+            }
+        },
+        "github_com_copolio_namegpt_pkg_dto.DomainInfo": {
+            "type": "object",
+            "properties": {
+                "available": {
+                    "type": "boolean"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "suffix": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_copolio_namegpt_pkg_dto.GenerateDomainNameResult": {
+            "type": "object",
+            "properties": {
+                "domainName": {
+                    "type": "string"
+                },
+                "info": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_copolio_namegpt_pkg_dto.DomainInfo"
+                    }
                 }
             }
         },

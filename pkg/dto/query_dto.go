@@ -8,14 +8,16 @@ type GenerateDomainNames struct {
 	Type        entity.QueryType `form:"type"`
 }
 
+type DomainInfo struct {
+	Domain    string `json:"domain"`
+	Suffix    string `json:"suffix"`
+	Available bool   `json:"available"`
+	Price     string `json:"price"`
+}
+
 type GenerateDomainNameResult struct {
-	DomainName string `json:"domain"`
-	Info       []struct {
-		Tld       string  `json:"tld"`
-		Available bool    `json:"available"`
-		Price     float64 `json:"price"`
-		Currency  string  `json:"currency"`
-	} `json:"info"`
+	DomainName string       `json:"domainName"`
+	Info       []DomainInfo `json:"info"`
 }
 
 type SimilarDomainNames struct {

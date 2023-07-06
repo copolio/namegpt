@@ -11,7 +11,7 @@ import (
 )
 
 type QueryUseCase interface {
-	Handle(request dto.SimilarDomainNames) (domainNames [][]*gabia.RegistCheckResult, err error)
+	Handle(request dto.SimilarDomainNames) (domainNames []*dto.GenerateDomainNameResult, err error)
 }
 
 func NewQueryUseCase() QueryUseCase {
@@ -28,7 +28,7 @@ type QueryService struct {
 	domainNameRepository   repository.DomainNameRepository
 }
 
-func (q QueryService) Handle(request dto.SimilarDomainNames) (registCheckResults [][]*gabia.RegistCheckResult, err error) {
+func (q QueryService) Handle(request dto.SimilarDomainNames) (registCheckResults []*dto.GenerateDomainNameResult, err error) {
 	db := config.GetGormDB()
 	tx := db.Begin()
 	defer func() {
@@ -85,27 +85,36 @@ func (q QueryService) Handle(request dto.SimilarDomainNames) (registCheckResults
 	return mapDomainNameToGenerateDomainNamesResult(domainNames), tx.Commit().Error
 }
 
-func mapDomainNameToGenerateDomainNamesResult(domainNames []entity.DomainName) [][]*gabia.RegistCheckResult {
+func mapDomainNameToGenerateDomainNamesResult(domainNames []entity.DomainName) []*dto.GenerateDomainNameResult {
 	//suffixes := []string{".com", ".co.kr", ".kr", ".shop", ".store", ".net", ".site", ".org", ".me", ".한국", ".io",
 	//	".biz", ".tv", ".info", ".xyz", ".ai", ".company", ".app", ".us", ".jp", ".cn", ".vn", ".tw", ".im", ".club", ".co"}
 	suffixes := []string{".com"}
 
-	result := make([][]*gabia.RegistCheckResult, len(domainNames))
+	result := make([]*dto.GenerateDomainNameResult, len(domainNames))
 	for i := 0; i < len(domainNames); i++ {
-		result[i] = make([]*gabia.RegistCheckResult, len(suffixes))
+		result[i] = &dto.GenerateDomainNameResult{
+			DomainName: domainNames[i].Name,
+			Info:       make([]dto.DomainInfo, len(suffixes)),
+		}
 	}
 	wg := sync.WaitGroup{}
 	for i, domainName := range domainNames {
 		for j, suffix := range suffixes {
-			domain := domainName.Name + suffix
 			wg.Add(1)
+			domain := domainName.Name + suffix
+			result[i].Info[j] = dto.DomainInfo{
+				Domain:    domain,
+				Suffix:    suffix,
+				Available: false,
+				Price:     "",
+			}
 			go func(domain string, i int, j int) {
 				registCheckResult, err := gabia.CheckDomainRegist(domain)
 				if err != nil {
-					result[i][j] = nil
+					result[i].Info[j].Available = false
 					return
 				}
-				result[i][j] = registCheckResult
+				result[i].Info[j].Available = registCheckResult.Result == "등록 가능"
 				wg.Done()
 			}(domain, i, j)
 		}
