@@ -14,7 +14,7 @@ export default function RootLayout({
         <html lang="en">
         <body>
         <div className="flex flex-col min-h-screen">
-            <header className="bg-white shadow py-4">
+            <header className="bg-white shadow py-4 dark:bg-gray-700 dark:text-gray-100">
                 <div className="max-w-7xl px-4">
                     <nav className="flex items-center justify-between">
                         <a className="text-lg font-bold" href="/">
@@ -23,10 +23,10 @@ export default function RootLayout({
                     </nav>
                 </div>
             </header>
-            <main className="flex-grow">{children}</main>
-            <footer className="py-4">
+            <main className="flex-grow  dark:bg-gray-500">{children}</main>
+            <footer className="py-4 dark:bg-gray-700 dark:text-gray-400">
                 <div className="max-w-7xl mx-auto px-4">
-                    <p className="text-gray-600 text-center">
+                    <p className="text-center">
                         &copy; {new Date().getFullYear()} Copolio. All rights reserved.
                     </p>
                 </div>

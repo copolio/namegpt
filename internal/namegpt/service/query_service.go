@@ -88,7 +88,7 @@ func (q QueryService) Handle(request dto.SimilarDomainNames) (registCheckResults
 func mapDomainNameToGenerateDomainNamesResult(domainNames []entity.DomainName) []*dto.GenerateDomainNameResult {
 	//suffixes := []string{".com", ".co.kr", ".kr", ".shop", ".store", ".net", ".site", ".org", ".me", ".한국", ".io",
 	//	".biz", ".tv", ".info", ".xyz", ".ai", ".company", ".app", ".us", ".jp", ".cn", ".vn", ".tw", ".im", ".club", ".co"}
-	suffixes := []string{".com"}
+	suffixes := []string{".com", ".net", ".kr", ".co.kr"}
 
 	result := make([]*dto.GenerateDomainNameResult, len(domainNames))
 	for i := 0; i < len(domainNames); i++ {
@@ -115,6 +115,7 @@ func mapDomainNameToGenerateDomainNamesResult(domainNames []entity.DomainName) [
 					return
 				}
 				result[i].Info[j].Available = registCheckResult.Result == "등록 가능"
+				result[i].Info[j].Price = registCheckResult.PriceDetail
 				wg.Done()
 			}(domain, i, j)
 		}

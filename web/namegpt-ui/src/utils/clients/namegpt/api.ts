@@ -26,49 +26,6 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
- * @interface GithubComCopolioNamegptInternalNamegptEntityDomainName
- */
-export interface GithubComCopolioNamegptInternalNamegptEntityDomainName {
-    /**
-     * 
-     * @type {string}
-     * @memberof GithubComCopolioNamegptInternalNamegptEntityDomainName
-     */
-    'createdAt'?: string;
-    /**
-     * 
-     * @type {GormDeletedAt}
-     * @memberof GithubComCopolioNamegptInternalNamegptEntityDomainName
-     */
-    'deletedAt'?: GormDeletedAt;
-    /**
-     * 
-     * @type {number}
-     * @memberof GithubComCopolioNamegptInternalNamegptEntityDomainName
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GithubComCopolioNamegptInternalNamegptEntityDomainName
-     */
-    'name'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof GithubComCopolioNamegptInternalNamegptEntityDomainName
-     */
-    'queryID'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GithubComCopolioNamegptInternalNamegptEntityDomainName
-     */
-    'updatedAt'?: string;
-}
-/**
- * 
- * @export
  * @interface GithubComCopolioNamegptInternalNamegptEntityUser
  */
 export interface GithubComCopolioNamegptInternalNamegptEntityUser {
@@ -106,57 +63,107 @@ export interface GithubComCopolioNamegptInternalNamegptEntityUser {
 /**
  * 
  * @export
- * @interface GithubComCopolioNamegptPkgDtoRequestCreateUser
+ * @interface GithubComCopolioNamegptPkgDtoCreateUser
  */
-export interface GithubComCopolioNamegptPkgDtoRequestCreateUser {
+export interface GithubComCopolioNamegptPkgDtoCreateUser {
     /**
      * 
      * @type {string}
-     * @memberof GithubComCopolioNamegptPkgDtoRequestCreateUser
+     * @memberof GithubComCopolioNamegptPkgDtoCreateUser
      */
     'name': string;
 }
 /**
  * 
  * @export
- * @interface GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames
+ * @interface GithubComCopolioNamegptPkgDtoDomainInfo
  */
-export interface GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames {
+export interface GithubComCopolioNamegptPkgDtoDomainInfo {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GithubComCopolioNamegptPkgDtoDomainInfo
+     */
+    'available'?: boolean;
     /**
      * 
      * @type {string}
-     * @memberof GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames
+     * @memberof GithubComCopolioNamegptPkgDtoDomainInfo
+     */
+    'domain'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GithubComCopolioNamegptPkgDtoDomainInfo
+     */
+    'price'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GithubComCopolioNamegptPkgDtoDomainInfo
+     */
+    'suffix'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface GithubComCopolioNamegptPkgDtoGenerateDomainNameResult
+ */
+export interface GithubComCopolioNamegptPkgDtoGenerateDomainNameResult {
+    /**
+     * 
+     * @type {string}
+     * @memberof GithubComCopolioNamegptPkgDtoGenerateDomainNameResult
+     */
+    'domainName'?: string;
+    /**
+     * 
+     * @type {Array<GithubComCopolioNamegptPkgDtoDomainInfo>}
+     * @memberof GithubComCopolioNamegptPkgDtoGenerateDomainNameResult
+     */
+    'info'?: Array<GithubComCopolioNamegptPkgDtoDomainInfo>;
+}
+/**
+ * 
+ * @export
+ * @interface GithubComCopolioNamegptPkgDtoRecommendDomainNames
+ */
+export interface GithubComCopolioNamegptPkgDtoRecommendDomainNames {
+    /**
+     * 
+     * @type {string}
+     * @memberof GithubComCopolioNamegptPkgDtoRecommendDomainNames
      */
     'description': string;
     /**
      * 
      * @type {Array<string>}
-     * @memberof GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames
+     * @memberof GithubComCopolioNamegptPkgDtoRecommendDomainNames
      */
     'previousResults'?: Array<string>;
     /**
      * 
      * @type {string}
-     * @memberof GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames
+     * @memberof GithubComCopolioNamegptPkgDtoRecommendDomainNames
      */
     'userId'?: string;
 }
 /**
  * 
  * @export
- * @interface GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames
+ * @interface GithubComCopolioNamegptPkgDtoSimilarDomainNames
  */
-export interface GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames {
+export interface GithubComCopolioNamegptPkgDtoSimilarDomainNames {
     /**
      * 
      * @type {string}
-     * @memberof GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames
+     * @memberof GithubComCopolioNamegptPkgDtoSimilarDomainNames
      */
     'keyword': string;
     /**
      * 
      * @type {string}
-     * @memberof GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames
+     * @memberof GithubComCopolioNamegptPkgDtoSimilarDomainNames
      */
     'user'?: string;
 }
@@ -253,11 +260,11 @@ export const V0ApiAxiosParamCreator = function (configuration?: Configuration) {
         /**
          * 
          * @summary Creates a user.
-         * @param {GithubComCopolioNamegptPkgDtoRequestCreateUser} user Create user request
+         * @param {GithubComCopolioNamegptPkgDtoCreateUser} user Create user request
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV0UsersPost: async (user: GithubComCopolioNamegptPkgDtoRequestCreateUser, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiV0UsersPost: async (user: GithubComCopolioNamegptPkgDtoCreateUser, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'user' is not null or undefined
             assertParamExists('apiV0UsersPost', 'user', user)
             const localVarPath = `/api/v0/users`;
@@ -320,11 +327,11 @@ export const V0ApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Creates a user.
-         * @param {GithubComCopolioNamegptPkgDtoRequestCreateUser} user Create user request
+         * @param {GithubComCopolioNamegptPkgDtoCreateUser} user Create user request
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV0UsersPost(user: GithubComCopolioNamegptPkgDtoRequestCreateUser, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GithubComCopolioNamegptInternalNamegptEntityUser>> {
+        async apiV0UsersPost(user: GithubComCopolioNamegptPkgDtoCreateUser, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GithubComCopolioNamegptInternalNamegptEntityUser>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV0UsersPost(user, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -360,11 +367,11 @@ export const V0ApiFactory = function (configuration?: Configuration, basePath?: 
         /**
          * 
          * @summary Creates a user.
-         * @param {GithubComCopolioNamegptPkgDtoRequestCreateUser} user Create user request
+         * @param {GithubComCopolioNamegptPkgDtoCreateUser} user Create user request
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV0UsersPost(user: GithubComCopolioNamegptPkgDtoRequestCreateUser, options?: any): AxiosPromise<GithubComCopolioNamegptInternalNamegptEntityUser> {
+        apiV0UsersPost(user: GithubComCopolioNamegptPkgDtoCreateUser, options?: any): AxiosPromise<GithubComCopolioNamegptInternalNamegptEntityUser> {
             return localVarFp.apiV0UsersPost(user, options).then((request) => request(axios, basePath));
         },
     };
@@ -403,12 +410,12 @@ export class V0Api extends BaseAPI {
     /**
      * 
      * @summary Creates a user.
-     * @param {GithubComCopolioNamegptPkgDtoRequestCreateUser} user Create user request
+     * @param {GithubComCopolioNamegptPkgDtoCreateUser} user Create user request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof V0Api
      */
-    public apiV0UsersPost(user: GithubComCopolioNamegptPkgDtoRequestCreateUser, options?: AxiosRequestConfig) {
+    public apiV0UsersPost(user: GithubComCopolioNamegptPkgDtoCreateUser, options?: AxiosRequestConfig) {
         return V0ApiFp(this.configuration).apiV0UsersPost(user, options).then((request) => request(this.axios, this.basePath));
     }
 }
@@ -423,11 +430,11 @@ export const V1ApiAxiosParamCreator = function (configuration?: Configuration) {
         /**
          * 
          * @summary Generates domain names in server sent event.
-         * @param {GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames} user Generate domain name recommendation
+         * @param {GithubComCopolioNamegptPkgDtoRecommendDomainNames} user Generate domain name recommendation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1DomainsRecommendationsPost: async (user: GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiV1DomainsRecommendationsPost: async (user: GithubComCopolioNamegptPkgDtoRecommendDomainNames, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'user' is not null or undefined
             assertParamExists('apiV1DomainsRecommendationsPost', 'user', user)
             const localVarPath = `/api/v1/domains/recommendations`;
@@ -459,11 +466,11 @@ export const V1ApiAxiosParamCreator = function (configuration?: Configuration) {
         /**
          * 
          * @summary Get similar domain names given input
-         * @param {GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames} q Generate similar domain name
+         * @param {GithubComCopolioNamegptPkgDtoSimilarDomainNames} q Generate similar domain name
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1DomainsSimilarNamesPost: async (q: GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiV1DomainsSimilarNamesPost: async (q: GithubComCopolioNamegptPkgDtoSimilarDomainNames, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'q' is not null or undefined
             assertParamExists('apiV1DomainsSimilarNamesPost', 'q', q)
             const localVarPath = `/api/v1/domains/similar-names`;
@@ -505,22 +512,22 @@ export const V1ApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Generates domain names in server sent event.
-         * @param {GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames} user Generate domain name recommendation
+         * @param {GithubComCopolioNamegptPkgDtoRecommendDomainNames} user Generate domain name recommendation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1DomainsRecommendationsPost(user: GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+        async apiV1DomainsRecommendationsPost(user: GithubComCopolioNamegptPkgDtoRecommendDomainNames, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1DomainsRecommendationsPost(user, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Get similar domain names given input
-         * @param {GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames} q Generate similar domain name
+         * @param {GithubComCopolioNamegptPkgDtoSimilarDomainNames} q Generate similar domain name
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1DomainsSimilarNamesPost(q: GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GithubComCopolioNamegptInternalNamegptEntityDomainName>>> {
+        async apiV1DomainsSimilarNamesPost(q: GithubComCopolioNamegptPkgDtoSimilarDomainNames, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GithubComCopolioNamegptPkgDtoGenerateDomainNameResult>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1DomainsSimilarNamesPost(q, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -537,21 +544,21 @@ export const V1ApiFactory = function (configuration?: Configuration, basePath?: 
         /**
          * 
          * @summary Generates domain names in server sent event.
-         * @param {GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames} user Generate domain name recommendation
+         * @param {GithubComCopolioNamegptPkgDtoRecommendDomainNames} user Generate domain name recommendation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1DomainsRecommendationsPost(user: GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames, options?: any): AxiosPromise<Array<string>> {
+        apiV1DomainsRecommendationsPost(user: GithubComCopolioNamegptPkgDtoRecommendDomainNames, options?: any): AxiosPromise<Array<string>> {
             return localVarFp.apiV1DomainsRecommendationsPost(user, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Get similar domain names given input
-         * @param {GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames} q Generate similar domain name
+         * @param {GithubComCopolioNamegptPkgDtoSimilarDomainNames} q Generate similar domain name
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1DomainsSimilarNamesPost(q: GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames, options?: any): AxiosPromise<Array<GithubComCopolioNamegptInternalNamegptEntityDomainName>> {
+        apiV1DomainsSimilarNamesPost(q: GithubComCopolioNamegptPkgDtoSimilarDomainNames, options?: any): AxiosPromise<Array<GithubComCopolioNamegptPkgDtoGenerateDomainNameResult>> {
             return localVarFp.apiV1DomainsSimilarNamesPost(q, options).then((request) => request(axios, basePath));
         },
     };
@@ -567,24 +574,24 @@ export class V1Api extends BaseAPI {
     /**
      * 
      * @summary Generates domain names in server sent event.
-     * @param {GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames} user Generate domain name recommendation
+     * @param {GithubComCopolioNamegptPkgDtoRecommendDomainNames} user Generate domain name recommendation
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof V1Api
      */
-    public apiV1DomainsRecommendationsPost(user: GithubComCopolioNamegptPkgDtoRequestRecommendDomainNames, options?: AxiosRequestConfig) {
+    public apiV1DomainsRecommendationsPost(user: GithubComCopolioNamegptPkgDtoRecommendDomainNames, options?: AxiosRequestConfig) {
         return V1ApiFp(this.configuration).apiV1DomainsRecommendationsPost(user, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Get similar domain names given input
-     * @param {GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames} q Generate similar domain name
+     * @param {GithubComCopolioNamegptPkgDtoSimilarDomainNames} q Generate similar domain name
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof V1Api
      */
-    public apiV1DomainsSimilarNamesPost(q: GithubComCopolioNamegptPkgDtoRequestSimilarDomainNames, options?: AxiosRequestConfig) {
+    public apiV1DomainsSimilarNamesPost(q: GithubComCopolioNamegptPkgDtoSimilarDomainNames, options?: AxiosRequestConfig) {
         return V1ApiFp(this.configuration).apiV1DomainsSimilarNamesPost(q, options).then((request) => request(this.axios, this.basePath));
     }
 }
