@@ -7,21 +7,26 @@ import {
     GithubComCopolioNamegptPkgDtoGenerateDomainNameResult,
     V1ApiFactory
 } from "@/utils/clients/namegpt";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function Home() {
     const v1Api = V1ApiFactory(new Configuration({basePath: "http://localhost:8080"}));
     const [searchResult, setSearchResult] =
         useState<GithubComCopolioNamegptPkgDtoGenerateDomainNameResult[]>([]);
+    let [isLoading, setIsLoading] = useState(false);
     const search = (value: string) => {
+        setIsLoading(true);
         v1Api.apiV1DomainsSimilarNamesPost({keyword: value})
             .then(res => {
                 setSearchResult(res.data)
             })
+            .finally(() => setIsLoading(false))
     }
     // @ts-ignore
     return (
         <>
             <div className="flex items-center justify-center h-full">
+                <LoadingSpinner isLoading={isLoading} label={"Generating domains...."} />
                 <div className="flex flex-col items-center w-full">
                     <img className="mx-auto mt-28 my-4" src="logo.png" alt="Copolio Logo"
                          style={{width: '250px', height: '250px'}}/>
