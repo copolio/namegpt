@@ -8,6 +8,7 @@ import {
     V1ApiFactory
 } from "@/utils/clients/namegpt";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import axios from "axios";
 
 export default function Home() {
     const v1Api = V1ApiFactory(new Configuration({basePath: "http://localhost:8080"}));
@@ -21,6 +22,28 @@ export default function Home() {
                 setSearchResult(res.data)
             })
             .finally(() => setIsLoading(false))
+    }
+
+    const openDomainInGabia = async (postData: { new_domain: string; search_gubun: "domain_index" }) => {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "https://domain.gabia.com/regist/regist_step1.php";
+        form.target = '_blank';
+
+        for (const key in postData) {
+            if (postData.hasOwnProperty(key)) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                // @ts-ignore
+                input.value = postData[key];
+                form.appendChild(input);
+            }
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
     }
     // @ts-ignore
     return (
@@ -47,7 +70,14 @@ export default function Home() {
                             {searchResult.map((item, index) => (
                                 <tr key={index}
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <td className="px-6 py-4">{item.domainName}</td>
+                                    <td className="px-6 py-4">
+                                        {item.domainName}
+                                        <button onClick={() => openDomainInGabia({new_domain: item.domainName})}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                        </svg>
+                                        </button>
+                                    </td>
                                     {item.info?.map((info, infoIndex) => (
                                         <td className="px-6 py-4" key={infoIndex}>
                                             <div
