@@ -55,7 +55,7 @@ export default function Home() {
                          style={{width: '250px', height: '250px'}}/>
                     <SearchBar className="lg:w-2/5 w-full px-2" placeholder="Type your domain name ideas"
                                onSearch={search}/>
-                    {searchResult.length > 0 && (<div className="m-10 relative overflow-x-auto shadow-md sm:rounded-lg">
+                    {searchResult.length > 0 && (<div className="m-10 relative lg:w-2/5 overflow-x-auto shadow-md sm:rounded-lg">
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead
                                 className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
