@@ -21,8 +21,11 @@ func GetSimilarDomains(keyword string) (domains []string, err error) {
 			Model: openai.GPT3Dot5Turbo,
 			Messages: []openai.ChatCompletionMessage{
 				{
-					Role:    openai.ChatMessageRoleSystem,
-					Content: "Given the input below, create JSON array containing 10 similar domain names without tld. Do not write normal text.",
+					Role: openai.ChatMessageRoleSystem,
+					Content: "Given the input below, create JSON array containing 10 similar or recommendable domain names without tld. " +
+						"Do not write normal text. " +
+						"Do not write normal text. " +
+						"Do not repeat last character or append numbers.",
 				},
 				{
 					Role:    openai.ChatMessageRoleUser,
