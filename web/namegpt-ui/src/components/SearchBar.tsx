@@ -21,7 +21,7 @@ export default function SearchBar(props: {
         }}>
             <div className="relative">
                 <input
-                    className="w-full h-12 px-4 pr-20 text-gray-700 bg-white-200 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y resize-x-none"
+                    className="w-full h-12 px-4 pr-20 text-gray-700 bg-white-200 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y resize-x-none"
                     type="text" placeholder={props.placeholder ?? "Search"}
                     value={keyword}
                     onChange={onChangeKeyword}
