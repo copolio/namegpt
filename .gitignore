@@ -1,3 +1,5 @@
 .idea/*
 # ENVIRONMENTAL VARIABLES
 .env*
+# binary file
+/bin
