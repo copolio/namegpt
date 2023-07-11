@@ -56,10 +56,10 @@ func (q QueryService) Handle(request dto.SimilarDomainNames) (registCheckResults
 		return nil, err2
 	}
 	// Return cached result if exists
-	if len(query.DomainNames) > 0 {
-		result := mapDomainNameToGenerateDomainNamesResult(query.DomainNames)
-		return result, tx.Commit().Error
-	}
+	//if len(query.DomainNames) > 0 {
+	//	result := mapDomainNameToGenerateDomainNamesResult(query.DomainNames)
+	//	return result, tx.Commit().Error
+	//}
 
 	// Ask ChatGPT for domains
 	domains, err3 := chatgpt.GenerateDomainNames(request.Keyword)
