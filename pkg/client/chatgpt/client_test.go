@@ -29,15 +29,15 @@ func TestGetSimilarDomains(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotDomains, err := GetSimilarDomains(tt.args.keyword)
+			gotDomains, err := GenerateDomainNames(tt.args.keyword)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GetSimilarDomains() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GenerateDomainNames() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			t.Logf("GetSimilarDomains() gotDomains = %v", gotDomains)
+			t.Logf("GenerateDomainNames() gotDomains = %v", gotDomains)
 			gotDomainsLen := len(gotDomains)
 			if gotDomainsLen < tt.wantDomains {
-				t.Errorf("GetSimilarDomains() gotDomains = %v, want %v", gotDomainsLen, tt.wantDomains)
+				t.Errorf("GenerateDomainNames() gotDomains = %v, want %v", gotDomainsLen, tt.wantDomains)
 			}
 		})
 	}

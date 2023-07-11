@@ -14,7 +14,7 @@ func init() {
 	client = openai.NewClient(config.NameGptAppConfig.Chatgpt.Token)
 }
 
-func GetSimilarDomains(keyword string) (domains []string, err error) {
+func GenerateDomainNames(keyword string) (domains []string, err error) {
 	response, err := client.CreateChatCompletion(
 		context.Background(),
 		openai.ChatCompletionRequest{
@@ -22,10 +22,13 @@ func GetSimilarDomains(keyword string) (domains []string, err error) {
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role: openai.ChatMessageRoleSystem,
-					Content: "Given the input below, create JSON array containing 10 similar or recommendable domain names without tld. " +
+					Content: "Given the input below, create JSON array containing 10 domain names without tld. " +
+						"If input is domain, give similar domain. Else if it is description, recommend domain names. " +
 						"Do not write normal text. " +
 						"Do not write normal text. " +
-						"Do not repeat last character or append numbers.",
+						"Do not repeat last character or append numbers. " +
+						"Domain names should be in english. " +
+						"Output should be like [\"gabia\", \"gabiacloud\", \"gabiadomain\"].",
 				},
 				{
 					Role:    openai.ChatMessageRoleUser,

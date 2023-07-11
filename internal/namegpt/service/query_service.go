@@ -62,7 +62,7 @@ func (q QueryService) Handle(request dto.SimilarDomainNames) (registCheckResults
 	}
 
 	// Ask ChatGPT for domains
-	domains, err3 := chatgpt.GetSimilarDomains(request.Keyword)
+	domains, err3 := chatgpt.GenerateDomainNames(request.Keyword)
 	if err3 != nil {
 		tx.Rollback()
 		return nil, err3
