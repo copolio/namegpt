@@ -8,7 +8,7 @@ export default function SearchBar(props: {
     onSearch: (value: string) => any
 }) {
     const [keyword, setKeyword] = useState("");
-    const onChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeKeyword = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setKeyword(e.target.value)
     }
     const resetKeyword = () => {
@@ -20,11 +20,13 @@ export default function SearchBar(props: {
             props.onSearch(keyword);
         }}>
             <div className="relative">
-                <input
-                    className="w-full h-12 px-4 pr-20 text-gray-700 bg-white-200 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y resize-x-none"
-                    type="text" placeholder={props.placeholder ?? "Search"}
+                <textarea
+                    className="w-full px-4 pt-2 pr-20 text-gray-700 bg-white-200 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y resize-x-none"
+                    rows={4}
+                    placeholder={props.placeholder ?? "Search"}
                     value={keyword}
                     onChange={onChangeKeyword}
+                    maxLength={300}
                 />
                 <button
                     type={"button"}
