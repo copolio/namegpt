@@ -27,7 +27,7 @@ func GenerateDomainNames(keyword string) (domains []string, err error) {
 						"Do not write normal text. " +
 						"Do not write normal text. " +
 						"Do not repeat last character or append numbers. " +
-						"Domain names should be in english. " +
+						"Domain names should be in english preferably without hyphen. " +
 						"Output should be like [\"gabia\", \"gabiacloud\", \"gabiadomain\"].",
 				},
 				{
