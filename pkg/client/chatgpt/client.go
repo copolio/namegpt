@@ -22,13 +22,12 @@ func GenerateDomainNames(keyword string) (domains []string, err error) {
 			Messages: []openai.ChatCompletionMessage{
 				{
 					Role: openai.ChatMessageRoleSystem,
-					Content: "Given the input below, create JSON array containing 10 domain names without tld. " +
+					Content: "Given the input below, create JSON array containing 10 domain names as string without tld. " +
 						"If input is domain, give similar domain. Else if it is description, recommend domain names. " +
 						"Do not write normal text. " +
 						"Do not write normal text. " +
 						"Do not repeat last character or append numbers. " +
-						"Domain names should be in english preferably without hyphen. " +
-						"Output should be like [\"gabia\", \"gabiacloud\", \"gabiadomain\"].",
+						"Domain names should be in English, preferably without hyphen. ",
 				},
 				{
 					Role:    openai.ChatMessageRoleUser,
