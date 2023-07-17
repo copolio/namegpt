@@ -16,92 +16,6 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v0/ping": {
-            "get": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "v0"
-                ],
-                "summary": "Pong!",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v0/users": {
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "v0"
-                ],
-                "summary": "Creates a user.",
-                "parameters": [
-                    {
-                        "description": "Create user request",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/github_com_copolio_namegpt_pkg_dto.CreateUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "user",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_copolio_namegpt_internal_namegpt_entity.User"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v0/users/{name}": {
-            "get": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "v0"
-                ],
-                "summary": "Gets a user info by name.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Username",
-                        "name": "name",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "user",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_copolio_namegpt_internal_namegpt_entity.User"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/domains/recommendations": {
             "post": {
                 "consumes": [
@@ -173,37 +87,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "github_com_copolio_namegpt_internal_namegpt_entity.User": {
-            "type": "object",
-            "properties": {
-                "createdAt": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "$ref": "#/definitions/gorm.DeletedAt"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
-                }
-            }
-        },
-        "github_com_copolio_namegpt_pkg_dto.CreateUser": {
-            "type": "object",
-            "required": [
-                "name"
-            ],
-            "properties": {
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
         "github_com_copolio_namegpt_pkg_dto.DomainInfo": {
             "type": "object",
             "properties": {
@@ -266,18 +149,6 @@ const docTemplate = `{
                 },
                 "user": {
                     "type": "string"
-                }
-            }
-        },
-        "gorm.DeletedAt": {
-            "type": "object",
-            "properties": {
-                "time": {
-                    "type": "string"
-                },
-                "valid": {
-                    "description": "Valid is true if Time is not NULL",
-                    "type": "boolean"
                 }
             }
         }

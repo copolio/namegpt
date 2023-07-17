@@ -1,24 +1,4 @@
 definitions:
-  github_com_copolio_namegpt_internal_namegpt_entity.User:
-    properties:
-      createdAt:
-        type: string
-      deletedAt:
-        $ref: '#/definitions/gorm.DeletedAt'
-      id:
-        type: integer
-      name:
-        type: string
-      updatedAt:
-        type: string
-    type: object
-  github_com_copolio_namegpt_pkg_dto.CreateUser:
-    properties:
-      name:
-        type: string
-    required:
-    - name
-    type: object
   github_com_copolio_namegpt_pkg_dto.DomainInfo:
     properties:
       available:
@@ -61,72 +41,9 @@ definitions:
     required:
     - keyword
     type: object
-  gorm.DeletedAt:
-    properties:
-      time:
-        type: string
-      valid:
-        description: Valid is true if Time is not NULL
-        type: boolean
-    type: object
 info:
   contact: {}
 paths:
-  /api/v0/ping:
-    get:
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: string
-      summary: Pong!
-      tags:
-      - v0
-  /api/v0/users:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: Create user request
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/github_com_copolio_namegpt_pkg_dto.CreateUser'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: user
-          schema:
-            $ref: '#/definitions/github_com_copolio_namegpt_internal_namegpt_entity.User'
-      summary: Creates a user.
-      tags:
-      - v0
-  /api/v0/users/{name}:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: Username
-        in: path
-        name: name
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: user
-          schema:
-            $ref: '#/definitions/github_com_copolio_namegpt_internal_namegpt_entity.User'
-      summary: Gets a user info by name.
-      tags:
-      - v0
   /api/v1/domains/recommendations:
     post:
       consumes:
