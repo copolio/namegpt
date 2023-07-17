@@ -1,5 +1,6 @@
 .idea/*
 # ENVIRONMENTAL VARIABLES
 .env*
+.application*.yml
 # binary file
 /bin
