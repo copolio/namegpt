@@ -22,7 +22,7 @@ type Query struct {
 }
 
 func init() {
-	if config.NameGptAppConfig.Mysql.Ddl == database.CREATE {
+	if config.NameGptAppConfig.Datasource.Ddl == database.CREATE {
 		log.Default().Println("Start creating QUERY table")
 		err := config.GetGormDB().AutoMigrate(&Query{})
 		if err != nil {

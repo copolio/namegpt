@@ -10,7 +10,7 @@ import (
 var connection *gorm.DB
 
 func init() {
-	dsn := NameGptAppConfig.Mysql.GetMysqlDSN()
+	dsn := NameGptAppConfig.Datasource.GetMysqlDSN()
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,
 		SkipDefaultTransaction:                   true,
@@ -23,8 +23,8 @@ func init() {
 	if err != nil {
 		log.Fatalf("Error retrieving MySQL sql connection: %v\n", err)
 	}
-	sqlDB.SetMaxIdleConns(NameGptAppConfig.Mysql.MaxIdleConn)
-	sqlDB.SetMaxOpenConns(NameGptAppConfig.Mysql.MaxOpenConn)
+	sqlDB.SetMaxIdleConns(NameGptAppConfig.Datasource.MaxIdleConn)
+	sqlDB.SetMaxOpenConns(NameGptAppConfig.Datasource.MaxOpenConn)
 	connection = db
 }
 

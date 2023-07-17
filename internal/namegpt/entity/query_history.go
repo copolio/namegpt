@@ -15,7 +15,7 @@ type QueryHistory struct {
 }
 
 func init() {
-	if config.NameGptAppConfig.Mysql.Ddl == database.CREATE {
+	if config.NameGptAppConfig.Datasource.Ddl == database.CREATE {
 		log.Default().Println("Start creating QUERY_HISTORY table")
 		err := config.GetGormDB().AutoMigrate(&QueryHistory{})
 		if err != nil {

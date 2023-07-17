@@ -14,9 +14,9 @@ type Server struct {
 }
 
 type AppConfig struct {
-	Server  Server              `yaml:"server"`
-	Mysql   database.Datasource `yaml:"mysql"`
-	Chatgpt client.ApiConfig    `yaml:"chatgpt"`
+	Server     Server              `yaml:"server"`
+	Datasource database.Datasource `yaml:"datasource"`
+	Chatgpt    client.ApiConfig    `yaml:"chatgpt"`
 }
 
 var NameGptAppConfig *AppConfig

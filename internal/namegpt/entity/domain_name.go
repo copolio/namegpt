@@ -14,7 +14,7 @@ type DomainName struct {
 }
 
 func init() {
-	if config.NameGptAppConfig.Mysql.Ddl == database.CREATE {
+	if config.NameGptAppConfig.Datasource.Ddl == database.CREATE {
 		log.Default().Println("Start creating DOMAIN_NAME table")
 		err := config.GetGormDB().AutoMigrate(&DomainName{})
 		if err != nil {
