@@ -24,7 +24,6 @@ func main() {
 	ginEngine.Use(middleware.ErrorHandler)
 	ginEngine.Use(static.Serve("/", static.LocalFile(pwd+"/web/namegpt-ui/out", true)))
 	ginEngine.GET("/swagger-ui/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
-	router.SetV0Routes(ginEngine)
 	router.SetV1Routes(ginEngine)
 	err := ginEngine.Run(fmt.Sprintf(":%d", config.NameGptAppConfig.Server.Port))
 	if err != nil {
