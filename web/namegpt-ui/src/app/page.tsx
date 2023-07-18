@@ -55,7 +55,7 @@ export default function Home() {
                          style={{width: '250px', height: '250px'}}/>
                     <SearchBar className="max-w-screen-lg md:w-4/5 sm:w-4/5 w-full px-2" placeholder="원하는 도메인에 대한 설명을 입력하세요."
                                onSearch={search}/>
-                    {searchResult.length > 0 && (<div className="m-10 relative max-w-screen-2xl overflow-x-auto shadow-md sm:rounded-lg">
+                    {searchResult?.length > 0 && (<div className="m-10 relative max-w-screen-2xl overflow-x-auto shadow-md sm:rounded-lg">
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead
                                 className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
