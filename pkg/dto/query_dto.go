@@ -1,13 +1,5 @@
 package dto
 
-import "github.com/copolio/namegpt/internal/namegpt/entity"
-
-type GenerateDomainNames struct {
-	Description string           `form:"description" binding:"required"`
-	UserId      string           `form:"user"`
-	Type        entity.QueryType `form:"type"`
-}
-
 type DomainInfo struct {
 	Domain    string `json:"domain"`
 	Suffix    string `json:"suffix"`
@@ -20,7 +12,7 @@ type GenerateDomainNameResult struct {
 	Info       []DomainInfo `json:"info"`
 }
 
-type SimilarDomainNames struct {
+type GenerateDomainNames struct {
 	Keyword string `form:"keyword" binding:"required"`
 	UserId  string `form:"user"`
 }

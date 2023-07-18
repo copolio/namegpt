@@ -19,6 +19,15 @@ definitions:
           $ref: '#/definitions/github_com_copolio_namegpt_pkg_dto.DomainInfo'
         type: array
     type: object
+  github_com_copolio_namegpt_pkg_dto.GenerateDomainNames:
+    properties:
+      keyword:
+        type: string
+      user:
+        type: string
+    required:
+    - keyword
+    type: object
   github_com_copolio_namegpt_pkg_dto.RecommendDomainNames:
     properties:
       description:
@@ -31,15 +40,6 @@ definitions:
         type: string
     required:
     - description
-    type: object
-  github_com_copolio_namegpt_pkg_dto.SimilarDomainNames:
-    properties:
-      keyword:
-        type: string
-      user:
-        type: string
-    required:
-    - keyword
     type: object
 info:
   contact: {}
@@ -75,7 +75,7 @@ paths:
         name: q
         required: true
         schema:
-          $ref: '#/definitions/github_com_copolio_namegpt_pkg_dto.SimilarDomainNames'
+          $ref: '#/definitions/github_com_copolio_namegpt_pkg_dto.GenerateDomainNames'
       produces:
       - application/json
       responses:

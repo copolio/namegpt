@@ -3,37 +3,46 @@ package service
 import (
 	"github.com/copolio/namegpt/config"
 	"github.com/copolio/namegpt/internal/namegpt/entity"
+	"github.com/copolio/namegpt/internal/namegpt/middleware"
 	"github.com/copolio/namegpt/internal/namegpt/repository"
 	"github.com/copolio/namegpt/pkg/client/chatgpt"
 	"github.com/copolio/namegpt/pkg/client/gabia"
 	"github.com/copolio/namegpt/pkg/dto"
+	"net/http"
 	"sync"
 )
 
-type QueryUseCase interface {
-	Handle(request dto.SimilarDomainNames) (domainNames []*dto.GenerateDomainNameResult, err error)
+type DomainGenerationUseCase interface {
+	Handle(request dto.GenerateDomainNames) (domainNames []*dto.GenerateDomainNameResult, err error)
 }
 
-func NewQueryUseCase() QueryUseCase {
-	return &QueryService{
+func NewQueryUseCase() DomainGenerationUseCase {
+	return &DomainGenerationService{
 		queryRepository:        repository.NewQueryRepository(),
 		queryHistoryRepository: repository.NewQueryHistoryRepository(),
 		domainNameRepository:   repository.NewDomainNameRepository(),
 	}
 }
 
-type QueryService struct {
+var _ DomainGenerationUseCase = DomainGenerationService{}
+
+type DomainGenerationService struct {
 	queryRepository        repository.QueryRepository
 	queryHistoryRepository repository.QueryHistoryRepository
 	domainNameRepository   repository.DomainNameRepository
 }
 
-func (q QueryService) Handle(request dto.SimilarDomainNames) (registCheckResults []*dto.GenerateDomainNameResult, err error) {
+func (q DomainGenerationService) Handle(request dto.GenerateDomainNames) (registCheckResults []*dto.GenerateDomainNameResult, err error) {
 	db := config.GetGormDB()
 	tx := db.Begin()
 	defer func() {
 		if r := recover(); r != nil {
 			tx.Rollback()
+			err = &middleware.ResponseStatusError{
+				Code:     http.StatusInternalServerError,
+				Message:  "DB Error occurred",
+				MetaData: "",
+			}
 		}
 	}()
 
@@ -55,11 +64,11 @@ func (q QueryService) Handle(request dto.SimilarDomainNames) (registCheckResults
 		tx.Rollback()
 		return nil, err2
 	}
-	// Return cached result if exists
-	//if len(query.DomainNames) > 0 {
-	//	result := mapDomainNameToGenerateDomainNamesResult(query.DomainNames)
-	//	return result, tx.Commit().Error
-	//}
+	// Return cached result within a day if exists
+	if len(query.DomainNames) > 0 {
+		result := mapDomainNameToGenerateDomainNamesResult(query.DomainNames)
+		return result, tx.Commit().Error
+	}
 
 	// Ask ChatGPT for domains
 	domains, err3 := chatgpt.GenerateDomainNames(request.Keyword)

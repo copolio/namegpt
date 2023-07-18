@@ -17,6 +17,8 @@ func NewDomainNameRepository() DomainNameRepository {
 	}
 }
 
+var _ DomainNameRepository = &DomainNameGormRepository{}
+
 type DomainNameGormRepository struct {
 	GormRepository[entity.DomainName, uint]
 }

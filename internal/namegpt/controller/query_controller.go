@@ -15,7 +15,7 @@ import (
 )
 
 type QueryController struct {
-	queryUseCase service.QueryUseCase
+	queryUseCase service.DomainGenerationUseCase
 }
 
 func NewQueryController() *QueryController {
@@ -26,13 +26,13 @@ func NewQueryController() *QueryController {
 // @Summary Get similar domain names given input
 // @MetaData Creates a user in database.
 // @Tags v1
-// @Param q body dto.SimilarDomainNames true "Generate similar domain name"
+// @Param q body dto.GenerateDomainNames true "Generate similar domain name"
 // @Produce  json
 // @Router /api/v1/domains/similar-names [post]
 // @Success 200 {array} dto.GenerateDomainNameResult "domain names"
 func (q QueryController) GenerateSimilarDomains() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		request := dto.SimilarDomainNames{}
+		request := dto.GenerateDomainNames{}
 		if err := c.ShouldBindBodyWith(&request, binding.JSON); err != nil {
 			c.Error(err)
 			return

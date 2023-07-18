@@ -68,7 +68,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_copolio_namegpt_pkg_dto.SimilarDomainNames"
+                            "$ref": "#/definitions/github_com_copolio_namegpt_pkg_dto.GenerateDomainNames"
                         }
                     }
                 ],
@@ -118,6 +118,20 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_copolio_namegpt_pkg_dto.GenerateDomainNames": {
+            "type": "object",
+            "required": [
+                "keyword"
+            ],
+            "properties": {
+                "keyword": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "string"
+                }
+            }
+        },
         "github_com_copolio_namegpt_pkg_dto.RecommendDomainNames": {
             "type": "object",
             "required": [
@@ -134,20 +148,6 @@ const docTemplate = `{
                     }
                 },
                 "userId": {
-                    "type": "string"
-                }
-            }
-        },
-        "github_com_copolio_namegpt_pkg_dto.SimilarDomainNames": {
-            "type": "object",
-            "required": [
-                "keyword"
-            ],
-            "properties": {
-                "keyword": {
-                    "type": "string"
-                },
-                "user": {
                     "type": "string"
                 }
             }

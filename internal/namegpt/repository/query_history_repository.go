@@ -17,6 +17,8 @@ func NewQueryHistoryRepository() QueryHistoryRepository {
 	}
 }
 
+var _ QueryHistoryRepository = &QueryHistoryGormRepository{}
+
 type QueryHistoryGormRepository struct {
 	GormRepository[entity.QueryHistory, uint]
 }
