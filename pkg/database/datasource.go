@@ -7,7 +7,6 @@ import (
 
 type Datasource struct {
 	Ddl         Ddl    `yaml:"ddl"`
-	Url         string `yaml:"url"`
 	Host        string `yaml:"host"`
 	Protocol    string `yaml:"protocol"`
 	Schema      string `yaml:"schema"`
