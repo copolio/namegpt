@@ -1,5 +1,7 @@
 # NameGPT
 
+![width:900px height:600px](/docs/domainai.gif)
+
 NameGPT is a simple microservice application you can use for domain name recommendation.
 
 This application has been built using following technologies:
